@@ -11,17 +11,17 @@
     <title>Signin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,6 +31,88 @@
   </head>
 
   <body>
+  <script>
+  var FBID = '1242227662492337' ;
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : FBID,
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+	window.fbloaded();
+	FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   window.fbloaded = function (){
+	FB.Event.subscribe("auth.statusChange",function(response){
+		if(response.status === "connected"){
+			FB.api("/me",function(response){
+				console.log(response.id);
+			});
+			FB.api("/me/picture?width=30",function(response){
+				console.log(response.data.url);
+			});
+			FB.api("/me/friends",function(response){
+				var len = Object.keys(response.data).length;
+				console.log(len);
+				for(i=0;i<len;i++){
+					var idiv = document.createElement("img");
+					idiv.className = "friend-pic img-rounded";
+					idiv.src = "https://graph.facebook.com/"+response.data[i].id+
+						"/picture?type=square";
+					document.getElementById("friend-block").appendChild(idiv);
+				}
+			});
+		}else{
+			var list=document.getElementById("friend-block");
+			for(i=0;i<list.childNodes.length;i++)
+				list.removeChild(list.childNodes[0]);
+		}
+	});
+   }
+   
+var sharing = function(){
+  FB.ui(
+  {
+    method: 'share',
+    href: 'https://developers.facebook.com/docs/',
+  },
+  // callback
+  function(response) {
+    if (response && !response.error_message) {
+      alert('Posting completed.');
+    } else {
+      alert('Error while posting.');
+    }
+  }
+);
+}
+
+var loginCheck = function(){
+	FB.getLoginStatus(function(response){
+		if(response.status === "connected"){
+			FB.logout(function(response){
+				console.log("FB-OUT");
+			});
+		}
+		else{
+			FB.login(function(response){
+				console.log("FB-IN");
+			},{scope:"user_friends"});
+		}
+	});
+}
+
+
+</script>
 
     <div class="container">
 
@@ -45,17 +127,152 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <a class="btn btn-lg btn-primary btn-block" role="button" id="login">Log in</a>		
-        <a class="btn btn-lg btn-success btn-block" role="button" id="signup">Sign up</a>	
+        <a class="btn btn-lg btn-success btn-block" role="button" id="login">Log in</a>   
+        <a class="btn btn-lg btn-warning btn-block" role="button" id="signup">Sign up</a>
+    <a class="btn btn-lg btn-primary btn-block" role="button" id="FBlogin">FB Log in</a>  
+    <a class="btn btn-lg btn-danger btn-block" role="button" id="Gsignup">Google sign up</a>
+    <a class="btn btn-lg btn-info btn-block" role="button" id="Tsignup">Twitter sign up</a> 
+    <a class="btn btn-lg btn-default btn-block" role="button" id="out">Sign out</a> 
+    <a class="btn btn-lg btn-info btn-block" role="button" id="FBs" onclick="sharing();">share</a>
+	<p class="friend-block" id="friend-block" ></p>  
       </form>
+
+<a class="twitter-share-button"
+  href="https://twitter.com/share"
+  data-size="large"
+  data-text="custom share text"
+  data-url=location.pathname
+  data-hashtags="example,demo"
+  data-via="twitterdev"
+  data-related="twitterapi,twitter">
+Tweet
+</a>
+
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
 
     </div> <!-- /container -->
 
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
     
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-<script src="js/login.js"></script>
+<script>
+(function(){ 
+  
+  var config = {
+    apiKey: "AIzaSyC6S1EiWCP6lk1lGLTgFxxuylGXPfT23y8",
+    authDomain: "factory-ddb70.firebaseapp.com",
+    databaseURL: "https://factory-ddb70.firebaseio.com",
+    storageBucket: "factory-ddb70.appspot.com",
+    messagingSenderId: "795740952180"
+  };
+  firebase.initializeApp(config); 
+
+  const FBlogin = document.getElementById("FBlogin");   
+  FBlogin.addEventListener('click', e =>{
+    var provider = new firebase.auth.FacebookAuthProvider();
+    //provider.addScope('user_friends');
+    firebase.auth().signInWithPopup(provider).then(function(result) {console.log("OK"); 
+  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+  loginCheck();
+  
+}).catch(function(error) {
+	console.log("ERR"); 
+ });  
+});  
+ 
+  const Gsignup = document.getElementById("Gsignup");   
+  Gsignup.addEventListener('click', e =>{
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);    
+ });  
+ 
+  const Tsignup = document.getElementById("Tsignup");   
+  Tsignup.addEventListener('click', e =>{
+    var provider = new firebase.auth.TwitterAuthProvider();
+    firebase.auth().signInWithPopup(provider);    
+ });
+ 
+ const out = document.getElementById("out"); 
+  out.addEventListener('click', e =>{
+    firebase.auth().signOut().then(function() {
+      console.log("success");
+	   loginCheck();
+    }, function(error) {
+      console.log("fail");
+  });
+  });
+  
+  const login = document.getElementById("login");
+  const signup = document.getElementById("signup");
+   
+  login.addEventListener('click', e =>{
+    var email = document.getElementById("inputEmail").value;
+    var password = document.getElementById("inputPassword").value;
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+    history.back();
+    }, function(error) {
+    location.reload();
+    });
+  });
+  
+  signup.addEventListener('click', e =>{
+    var email = document.getElementById("inputEmail").value;
+    var password = document.getElementById("inputPassword").value;
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+        history.back();
+    }, function(error) {
+    location.reload();
+    });
+  });
+  
+  
+ firebase.auth().onAuthStateChanged(firebaseUser =>{
+  if(firebaseUser){
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid;    
+    if (user != null) {
+		name = user.displayName;
+		photoUrl = user.photoURL;
+		uid = user.uid;
+			// The user's ID, unique to the Firebase project. Do NOT use
+            // this value to authenticate with your backend server, if
+            // you have one. Use User.getToken() instead.
+    }
+	console.log(firebaseUser);
+	var Ref = firebase.database().ref('user/' + uid);
+	Ref.once("value").then(function(snapshot) {
+		var a = snapshot.child("like").exists();  // true
+		if(a){
+			Ref.update({ // in database
+				displayName: name,
+				photo : photoUrl
+			});
+		}else{
+			Ref.set({ // in database
+				like: "none",
+				went: "none",
+				displayName: name,
+				photo : photoUrl
+			});
+		}
+		console.log(a);
+	});	
+  }else{
+    console.log("not log in");
+  }
+  });
+  
+}());
+</script>
   </body>
 </html>
