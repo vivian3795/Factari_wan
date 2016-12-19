@@ -1,4 +1,4 @@
-$(function () {	
+jQuery(document).ready(function () {	
        //利用canvas產生一個內含文字的圖檔
         function createMarkerIcon(text, opt) {
             //定義預設參數
