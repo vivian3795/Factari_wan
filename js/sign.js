@@ -11,7 +11,7 @@
   const sign = document.getElementById("sign");
   const out = document.getElementById("out");
   const name = document.getElementById("name");
-  
+  const person = document.getElementById("person");
   out.addEventListener('click', e =>{
     firebase.auth().signOut().then(function() {
 			console.log("success");
@@ -24,11 +24,17 @@
   if(firebaseUser){
     console.log("now log in"); 
 	sign.classList.add("hide");
-	name.classList.remove("hide");
+  	name.classList.remove("hide");
+    var uid = firebase.auth().currentUser.uid;
+    var Ref = firebase.database().ref('user/' + uid);
+    Ref.on("value", function(snapshot) {
+      document.getElementById("Uname").innerHTML = snapshot.val().displayName;    
+    }); 
+	person.href="person.html#"+uid;
   }else{
     console.log("not log in");
-	name.classList.add("hide");
-	sign.classList.remove("hide");
+	 name.classList.add("hide");
+	 sign.classList.remove("hide");
   }
   });
   
