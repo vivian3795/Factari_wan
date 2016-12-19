@@ -401,7 +401,7 @@ td li .ld{background-position:0 -510;}
 }
 
 
-.keelung a, .taipei a, .xinbei a, .taoyuan a, .hsinchu a, .miaoli a, .taichung a, .changhua a, .nantou a, .yunlin a, .chiayi a, .tainan a, .kaohsiung a, .pingtung a, .yilan a,  .hualien a, .taitung a, .penghu a, .kinmen a{ background:url(../images/maplistname.png);display:block; width:60px; height:50px;}
+.keelung > a, .taipei a, .xinbei a, .taoyuan a, .hsinchu a, .miaoli a, .taichung a, .changhua a, .nantou a, .yunlin a, .chiayi a, .tainan a, .kaohsiung a, .pingtung a, .yilan a,  .hualien a, .taitung a, .penghu a, .kinmen a{ background:url(../images/maplistname.png);display:block; width:60px; height:50px;}
 
 .keelung a{background-position:0 -50px; }
 .taipei a{background-position:0 -100px; }
