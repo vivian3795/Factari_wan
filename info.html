@@ -21,7 +21,23 @@
 
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/block_style.css">
+    <style>
+        label, input { display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
@@ -32,7 +48,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	 <script type='text/javascript' 
-            src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script>  
+            src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script> 
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style>
         body,input { padding-top: 100px;font-size: 9pt; font-family:Microsoft JhengHei;}		   
@@ -76,50 +93,113 @@
     <div class="container">		
     <div class="panel panel-default">
         <div class="panel-heading"><h4><strong>手信坊創意和菓子文化館</strong></h4></div>
-        <div class="panel-body">
+        <div class="panel-body table-responsive">
             <img src="images/info/m1.jpg" class="img-thumbnail">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>名稱</th>
-                        <th colspan="4">手信坊創意和菓子文化館</th>
-                        
-                    </tr>
-                    <tr>
-                        <th>電話TEL</th>
-                        <th colspan="4">02-82620506</th>
-                    </tr>
-                    <tr>
-                        <th>地址</th>
-                        <th colspan="4">新北市土城區國際路55號</th>
-                    </tr>
-                    <tr>
-                        <th>介紹</th>
-                        <th  colspan="4">日本和菓子老師傅一句「殘念」（日語：可惜）， 聽在手信坊創始人陳世洋的耳裡，世代傳承的和菓子，開始蘊發了全新生命。 手信坊品牌再造迄今，手信坊在傳承與創新之間不斷的蛻變、成長。因此，投入「觀光工廠」的規劃，一直是我們長期經營的目標與方向， 並將日本和菓子文化的細膩精神，結合在地文化的深耕，讓日和菓子文化融入更多元的面貌，也可更輕易的讓更多的國人可體驗到日本食藝的 極致文化。此外，我們也祈望透過導覽的方式，來凸顯日本和菓子的人文精神，傳達「五感綜合藝術」的細膩表徵，祈望透過以「品牌再造」 的蛻變， 融入「人文」、「創新」、「教育」、「傳承」的意念，重新塑造傳統產業所創造出的新價值觀。現在正在發光、發熱的新生命力。手信坊　始終相信，唯有不斷創新技藝，開發健康食材及落實專業品管，才是對顧客最貼心的禮數；才能把世代演進的和菓子食藝文 化，轉化成觸動 五感的絕技，幫助新一代和菓子穿透世界不同文化，獲得更多的讚賞，傳承久遠。 </th>
-                    </tr>
-                    <tr>
-                        <th>參觀資訊</th>
-                        <th colspan="4"><a href="www.3ssf.com.tw">www.3ssf.com.tw</a></th>
-                    </tr>
-                    <tr>
-                        <th>交通資訊</th>
-                        <th colspan="4">
-                            <ul>
-                                <li>捷運<br>搭乘南線至土城或海山捷運站後，轉搭藍十七公車至國際路路口下行5分鐘即可到達，或搭計程車約十分鐘到到，費用約略$100元左右即可到達。</li>
-                                <li>自行開車<br>北上:行駛國道三號高速公路，於土城交流道下，往板橋方向經中央路、金城 路接明德路，接國際路直行即可到達。<br>南下:行駛國道三號高速公路，於中和交流道下，往土城方向經金城路、明德路接國際路即可到達。</li>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>	 
+            <button type="button" class="btn btn-block panel-heading accordion-toggle" data-toggle="collapse" data-target="#info" aria-expanded="true" aria-controls="info">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                   資訊 Information</button>
+                    <table class="table table-bordered table-hover accordion-body collapse" id="info">
+                        <tr>
+                            <th>名稱</th>
+                            <th>手信坊創意和菓子文化館</th>
+
+                        </tr>
+                        <tr>
+                            <th>電話TEL</th>
+                            <th>02-82620506</th>
+                        </tr>
+                        <tr>
+                            <th>地址</th>
+                            <th>新北市土城區國際路55號</th>
+                        </tr>
+                        <tr>
+                            <th>參觀資訊</th>
+                            <th><a href="www.3ssf.com.tw">www.3ssf.com.tw</a></th>
+                        </tr>
+                    </table>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>分享</button>
+              </div>
+              <div class="btn-group" role="group" id="add_a">
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增評論</button>
+              </div>
+            </div>
+            <div id="add_a" title="新增評論">
+              <p class="validateTips">All form fields are required.</p>
+
+              <form>
+                <fieldset>
+                  <label for="name">Name</label>
+                  <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+                  <label for="email">Email</label>
+                  <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+
+                  <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                  <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+              </form>
+            </div>	 
             </div>
         </div>  
-    </div>
-      <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
+      <div class="card-container">
+              <div class="card">
+                <div class="card-image"></div>
+                <div class="card-info">
+                  <div class="card-title">Title</div>
+                  <div class="card-detail"></div>
+                </div>
+                <div class="card-social">
+                <ul>
+                  <li><i class="fa fa-comment-o" aria-hidden="true"></i>
+            </li>
+                  <li><i class="fa fa-heart-o" aria-hidden="true"></i></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card">
+                  <img src="images/t1.jpg" class="card-image">
+                    <div class="card-info">
+                      <div class="card-title">Title</div>
+                      <div class="card-detail">
+                      </div>
+                    </div>
+                      <div class="card-social">
+                        <ul>
+                            <li><i class="fa fa-comment-o" aria-hidden="true"></i>
+                            </li>
+                            <li><i class="fa fa-heart-o" aria-hidden="true"></i>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-image"></div>
+                    <div class="card-info">
+                      <div class="card-title">Title</div>
+                      <div class="card-detail"></div>
+                    </div>
+                    <div class="card-social">
+                    <ul>
+                        <li><a href="database.html"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
+                        </li>
+                      <li><i class="fa fa-heart-o" aria-hidden="true"></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
     </div> <!-- /container -->
-
+    
+    
+    <!--<div class="container">-->        
+    <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+    </footer>
+    <!--  </div>-->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
