@@ -52,13 +52,32 @@
    }(document, 'script', 'facebook-jssdk'));
 
    window.fbloaded = function (){
-	FB.Event.subscribe("auth.statusChange",function(response){
+	FB.Event.subscribe("auth.statusChange",function(response){			
 		if(response.status === "connected"){
+			var Ref = firebase.database().ref('user/' + firebase.auth().currentUser.uid);
+			Ref.once("value").then(function(snapshot) {
+			var a = snapshot.child("like").exists();  // true
+				if(a==false){			
+					Ref.set({ // in database
+						like: "none",
+						went: "none",
+						displayName:"null",
+						photo : "null"
+					});
+				}			
+			});
 			FB.api("/me",function(response){
 				console.log(response.id);
+				console.log(response.name);
+				Ref.update({ // in database
+					displayName: response.name
+				});
 			});
 			FB.api("/me/picture?width=30",function(response){
 				console.log(response.data.url);
+				Ref.update({ // in database
+					photo : response.data.url
+				});
 			});
 			FB.api("/me/friends",function(response){
 				var len = Object.keys(response.data).length;
@@ -121,20 +140,12 @@ var loginCheck = function(){
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>        
         <a class="btn btn-lg btn-success btn-block" role="button" id="login">Log in</a>   
         <a class="btn btn-lg btn-warning btn-block" role="button" id="signup">Sign up</a>
     <a class="btn btn-lg btn-primary btn-block" role="button" id="FBlogin">FB Log in</a>  
     <a class="btn btn-lg btn-danger btn-block" role="button" id="Gsignup">Google sign up</a>
     <a class="btn btn-lg btn-info btn-block" role="button" id="Tsignup">Twitter sign up</a> 
-    <a class="btn btn-lg btn-default btn-block" role="button" id="out">Sign out</a> 
-    <a class="btn btn-lg btn-info btn-block" role="button" id="FBs" onclick="sharing();">share</a>
-	<p class="friend-block" id="friend-block" ></p>  
       </form>
 
 <a class="twitter-share-button"
@@ -201,38 +212,20 @@ Tweet
     var provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().signInWithPopup(provider);    
  });
- 
- const out = document.getElementById("out"); 
-  out.addEventListener('click', e =>{
-    firebase.auth().signOut().then(function() {
-      console.log("success");
-	   loginCheck();
-    }, function(error) {
-      console.log("fail");
-  });
-  });
-  
+   
   const login = document.getElementById("login");
   const signup = document.getElementById("signup");
    
   login.addEventListener('click', e =>{
     var email = document.getElementById("inputEmail").value;
     var password = document.getElementById("inputPassword").value;
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-    history.back();
-    }, function(error) {
-    location.reload();
-    });
+    firebase.auth().signInWithEmailAndPassword(email, password);
   });
   
   signup.addEventListener('click', e =>{
     var email = document.getElementById("inputEmail").value;
     var password = document.getElementById("inputPassword").value;
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
-        history.back();
-    }, function(error) {
-    location.reload();
-    });
+    firebase.auth().createUserWithEmailAndPassword(email, password);
   });
   
   
@@ -250,13 +243,13 @@ Tweet
     }
 	console.log(firebaseUser);
 	var Ref = firebase.database().ref('user/' + uid);
-	Ref.once("value").then(function(snapshot) {
+	Ref.on("value",function(snapshot) {
 		var a = snapshot.child("like").exists();  // true
 		if(a){
-			Ref.update({ // in database
+			/*Ref.update({ // in database
 				displayName: name,
 				photo : photoUrl
-			});
+			});*/
 		}else{
 			Ref.set({ // in database
 				like: "none",
@@ -266,7 +259,8 @@ Tweet
 			});
 		}
 		console.log(a);
-	});	
+	});
+	history.back();
   }else{
     console.log("not log in");
   }
