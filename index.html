@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+     <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.js'></script><!--map-->
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /><!--map-->   
+	 <script src="js/testmap.js" type="text/javascript"></script>
+   <style>
+        body,input { font-size: 9pt; }
+        html { height: 100% }  
+        body { height: 100%; margin: 0px; padding: 0px }  
+        #map {
+           margin: 40px;
+           height: 550px;
+           width: 550px;
+        }
+        .modalDialog {
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 99999;
+            opacity:0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+        }
+        .modalDialog:target {
+            opacity:1;
+            pointer-events: auto;
+        }
+        .modalDialog > div {
+            width: 700px;
+            position: relative;
+            margin: 0.5% auto;
+            padding: 5px 20px 13px 20px;
+            border-radius: 10px;
+            background: #fff;
+            background: -moz-linear-gradient(#fff, #999);
+            background: -webkit-linear-gradient(#fff, #999);
+            background: -o-linear-gradient(#fff, #999);
+        }
+        .close {
+            background: #606061;
+            color: #FFFFFF;
+            line-height: 25px;
+            position: absolute;
+            right: -12px;
+            text-align: center;
+            top: -10px;
+            width: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 1px 1px 3px #000;
+            -webkit-box-shadow: 1px 1px 3px #000;
+            box-shadow: 1px 1px 3px #000;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+        }
+        .close:hover { background: #00d9ff; }         
+    </style>
+    <!--map-->
+
+  <link href="css/style2.css" rel="stylesheet" type="text/css">
+    <title>Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <script type='text/javascript' 
+            src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script>   
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style>
+        body,input { padding-top: 70px;font-size: 9pt; font-family:Microsoft JhengHei;}      
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">LOGO</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">          
+          <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="location.html">位置</a></li>
+            <li><a href="login.html" id="sign">Log in</a></li> 
+          <li class="dropdown hide" id="name">
+            <a  class="dropdown-toggle" id="Uname" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="123.html" id="person">person</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a id="out">Log out</a></li>
+            </ul>
+          </li>
+          </ul>    
+        </div><!--/.nav-collapse -->
+
+      </div>
+    </nav>   
+  
+  
+  <div class="map">
+  <div id="maplist" class="idTabs">
+        <div class="keelung" >
+            <a href="#openModal" class="popMap" onclick="initMap(0);"></a>
+            <div id="openModal" class="modalDialog popMap">
+                <div>
+                    <a href="#close" title="Close" class="close">X</a>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div class="taipei" >
+            <a href="#openModal" onclick="initMap(1);"></a>
+        </div>
+        <div class="xinbei" >
+            <a href="#openModal" onclick="initMap(2);"></a>
+        </div>
+        <div class="taoyuan" >
+			<a href="#openModal" onclick="initMap(3);"></a>
+		</div>
+        <div class="hsinchu" >
+			<a href="#openModal" onclick="initMap(4);"></a>
+		</div>
+        <div class="miaoli" >
+			<a href="#openModal" onclick="initMap(5);"></a>
+		</div>
+        <div class="taichung">
+			<a href="#openModal" onclick="initMap(6);"></a>
+		</div>
+        <div class="changhua" >
+			<a href="#openModal" onclick="initMap(7);"></a>
+        </div>
+        <div class="nantou">
+			<a href="#openModal" onclick="initMap(9);"></a>
+        </div>
+        <div class="yunlin">
+			<a href="#openModal" onclick="initMap(8);"></a>
+		</div>
+        <div class="chiayi">
+			<a href="#openModal" onclick="initMap(10);"></a>
+		</div>
+        <div class="tainan">
+			<a href="#openModal" onclick="initMap(11);"></a>
+        </div>
+        <div class="kaohsiung">
+			<a href="#openModal" onclick="initMap(12);"></a>
+		</div>
+        <div class="pingtung">
+			<a href="#openModal" onclick="initMap(13);"></a>
+		</div>
+        <div class="yilan">
+			<a href="#openModal" onclick="initMap(16);"></a>
+		</div>
+        <div class="hualien">
+			<a href="#openModal" onclick="initMap(15);"></a>
+        </div>
+        <div class="taitung">
+			<a href="#openModal" onclick="initMap(14);"></a>
+  		</div>
+        <div class="penghu" >
+			<a href="#openModal" onclick="initMap(17);"></a>
+		</div>
+        <div class="kinmen" >
+			<a href="#openModal" onclick="initMap(18);"></a>
+		</div>
+        <div id="twmap" class="items">
+    
+  </map>
+      <!--<footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>-->
+    
+    
+    </div> <!-- /container -->
+   
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!--map-->
+   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL6jufC2Qe61igD_cSxoxEx9E9JqOJJM0&callback=initMap&signed_in=true&libraries=places&sensor=false" async defer>
+    </script><!--map-->
+    <script  src="js/sign.js"></script>
+  </body>
+</html>
