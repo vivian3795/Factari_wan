@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta https-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -11,13 +11,12 @@
 
      <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.js'></script><!--map-->
      <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /><!--map-->   
-	 <script src="js/testmap.js" type="text/javascript"></script>
+	 <script src="js/taiwan.js" type="text/javascript"></script>
    <style>
-        body,input { font-size: 9pt; }
         html { height: 100% }  
-        body { height: 100%; margin: 0px; padding: 0px }  
+		body,input { padding-top: 100px;font-size: 9pt; font-family:Microsoft JhengHei;}    
         #map {
-           margin: 40px;
+           margin: 55px;
            height: 550px;
            width: 550px;
         }
@@ -41,6 +40,7 @@
             pointer-events: auto;
         }
         .modalDialog > div {
+			top: 70px;
             width: 700px;
             position: relative;
             margin: 0.5% auto;
@@ -72,28 +72,46 @@
             -moz-transition: opacity 400ms ease-in;
             transition: opacity 400ms ease-in;
         }
-        .close:hover { background: #00d9ff; }         
+        .close:hover { background: #00d9ff; }
+		@media (max-width: 750px) {			
+			#map {
+				margin: 20px;
+				height: 500px;
+				width: 500px;
+			}
+			.modalDialog > div {
+				width: 90%;
+			}
+		}
+		@media (max-width: 650px) {			
+			#map {
+				margin: 10px;
+				height: 400px;
+				width: 400px;
+			}
+		}		
+		@media (max-width: 500px) {			
+			#map {
+				margin: 5px;
+				height: 300px;
+				width: 300px;
+			}
+		}		
     </style>
     <!--map-->
 
   <link href="css/style2.css" rel="stylesheet" type="text/css">
-    <title>Title</title>
-	<!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
-	
+    <title>Factari Wan</title>
+
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-	
-	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
-	
+	<!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -109,16 +127,11 @@
    <script type='text/javascript' 
             src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script>   
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" media="all" href="https://d3kjtz7uyul5bi.cloudfront.net/assets/application-69965045c910c69a67548a599c43b364a80f9b2aa0d70b7a9f9add3ad7a83641.css" />
-	<style>
-      	body,input { padding-top: 100px;font-size: 9pt; font-family:Microsoft JhengHei;}
-		#o-wrapper {z-index:0;}
-    </style>
   </head>
 
   <body>
-  <div class="navbar-wrapper">
-    <div class="container">
+	<div class="navbar-wrapper">
+      <div class="container">
 
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
@@ -129,7 +142,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.html">LOGO</a>
+              <a class="navbar-brand" href="taiwan.html">LOGO</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">          
 				<ul class="nav navbar-nav navbar-right">
@@ -147,12 +160,15 @@
 			</div>
           </div>
         </nav>
+
+      </div>
+    </div>	
   
-  
+ <div class="container"> 
   <div class="map">
   <div id="maplist" class="idTabs">
         <div class="keelung" >
-            <a href="#openModal" class="popMap" onclick="initMap(0);"></a>
+            <a href="#openModal" class="popMap" onclick="initMap('keelung');"></a>
             <div id="openModal" class="modalDialog popMap">
                 <div>
                     <a href="#close" title="Close" class="close">X</a>
@@ -161,69 +177,66 @@
             </div>
         </div>
         <div class="taipei" >
-            <a href="#openModal" onclick="initMap(1);"></a>
+            <a href="#openModal" onclick="initMap('taipei');"></a>
         </div>
         <div class="xinbei" >
-            <a href="#openModal" onclick="initMap(2);"></a>
+            <a href="#openModal" onclick="initMap('xinbei');"></a>
         </div>
         <div class="taoyuan" >
-			<a href="#openModal" onclick="initMap(3);"></a>
+			<a href="#openModal" onclick="initMap('taoyuan');"></a>
 		</div>
         <div class="hsinchu" >
-			<a href="#openModal" onclick="initMap(4);"></a>
+			<a href="#openModal" onclick="initMap('hsinchu');"></a>
 		</div>
         <div class="miaoli" >
-			<a href="#openModal" onclick="initMap(5);"></a>
+			<a href="#openModal" onclick="initMap('miaoli');"></a>
 		</div>
         <div class="taichung">
-			<a href="#openModal" onclick="initMap(6);"></a>
+			<a href="#openModal" onclick="initMap('taichung');"></a>
 		</div>
         <div class="changhua" >
-			<a href="#openModal" onclick="initMap(7);"></a>
+			<a href="#openModal" onclick="initMap('changhua');"></a>
         </div>
         <div class="nantou">
-			<a href="#openModal" onclick="initMap(9);"></a>
+			<a href="#openModal" onclick="initMap('nantou');"></a>
         </div>
         <div class="yunlin">
-			<a href="#openModal" onclick="initMap(8);"></a>
+			<a href="#openModal" onclick="initMap('yunlin');"></a>
 		</div>
         <div class="chiayi">
-			<a href="#openModal" onclick="initMap(10);"></a>
+			<a href="#openModal" onclick="initMap('chiayi');"></a>
 		</div>
         <div class="tainan">
-			<a href="#openModal" onclick="initMap(11);"></a>
+			<a href="#openModal" onclick="initMap('tainan');"></a>
         </div>
         <div class="kaohsiung">
-			<a href="#openModal" onclick="initMap(12);"></a>
+			<a href="#openModal" onclick="initMap('kaohsiung');"></a>
 		</div>
         <div class="pingtung">
-			<a href="#openModal" onclick="initMap(13);"></a>
+			<a href="#openModal" onclick="initMap('pingtung');"></a>
 		</div>
         <div class="yilan">
-			<a href="#openModal" onclick="initMap(16);"></a>
+			<a href="#openModal" onclick="initMap('yilan');"></a>
 		</div>
         <div class="hualien">
-			<a href="#openModal" onclick="initMap(15);"></a>
+			<a href="#openModal" onclick="initMap('hualien');"></a>
         </div>
         <div class="taitung">
-			<a href="#openModal" onclick="initMap(14);"></a>
+			<a href="#openModal" onclick="initMap('taitung');"></a>
   		</div>
         <div class="penghu" >
-			<a href="#openModal" onclick="initMap(17);"></a>
+			<a href="#openModal" onclick="initMap('penghu');"></a>
 		</div>
         <div class="kinmen" >
-			<a href="#openModal" onclick="initMap(18);"></a>
+			<a href="#openModal" onclick="initMap('kinmen');"></a>
 		</div>
         <div id="twmap" class="items">
     
   </map>
       <!--<footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
       </footer>-->
-    
-    
+      
     </div> <!-- /container -->
-	</div>
    
   <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -233,11 +246,12 @@
     <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-    <script  src="js/sign.js"></script>
+
     <!--map-->
    
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL6jufC2Qe61igD_cSxoxEx9E9JqOJJM0&callback=initMap&signed_in=true&libraries=places&sensor=false" async defer>
     </script><!--map-->
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <script src="js/sign.js"></script>
   </body>
 </html>
