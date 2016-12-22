@@ -38,11 +38,32 @@
     <style>
         body,input { font-size: 9pt; font-family:Microsoft JhengHei;padding-top: 100px;}		
         html { height: 100% }  
-        body { height: 100%; margin: 0px; padding: 100px }  
-        #map_canvas { margin:0px auto; width:95%; height:400px; }     
-		@media (min-width: 750px) {
-			#map_canvas {width:700px; height:500px;}   
+        body { height: 100%; margin: 0px; }  
+        #map_canvas { margin:0px auto; width:700px; height:500px; }     
+		@media (max-width: 900px) {			
+			#map_canvas {
+				height: 600px;
+				width: 600px;
+			}
 		}
+		@media (max-width: 700px) {			
+			#map_canvas {
+				height: 500px;
+				width: 500px;
+			}
+		}		
+		@media (max-width: 600px) {			
+			#map_canvas {
+				height: 400px;
+				width: 400px;
+			}
+		}
+    @media (max-width: 400px) {     
+      #map_canvas {
+        height: 300px;
+        width: 300px;
+      }
+    }
     </style>
     <script  src="js/map.js"></script>
   </head>
@@ -60,7 +81,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.html">LOGO</a>
+              <a class="navbar-brand" href="taiwan.html">LOGO</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">          
 				<ul class="nav navbar-nav navbar-right">
@@ -82,13 +103,6 @@
       </div>
     </div>
 	<div id="map_canvas"></div>
-    <div class="container">
-	    
-      <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
-
-    </div> <!-- /container -->
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
