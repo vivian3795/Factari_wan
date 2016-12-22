@@ -1,12 +1,15 @@
 jQuery(document).ready(function () {	
  function attachSecretMessage(marker, secretMessage, picture, tel) {
+   var infowindowHtml="<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+".jpg>"+"<div></div>"+
+        "<a href='https://factory-ddb70.firebaseapp.com/info.html#"+tel+"'>"+secretMessage+"</a>"
    var infowindow = new google.maps.InfoWindow({
-    content: "<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+">"+"<div></div>"+"<a href='https://factory-ddb70.firebaseapp.com/info.html#"+tel+"'>"+secretMessage+"</a>"
+    content: infowindowHtml
    });
    marker.addListener('mouseover', function() {
      infowindow.open(marker.get('map'), marker);
-   });
+   }); 
  }
+
        //利用canvas產生一個內含文字的圖檔
         function createMarkerIcon(text, opt) {
             //定義預設參數
@@ -31,7 +34,7 @@ jQuery(document).ready(function () {
             //文字大小加上padding作為外部尺寸
             var w = metrics.width + options.padding * 2;
             //高度以Font的大小為準
-            var h = options.fontSize + options.padding * 2 +
+            var h = options.fontSize + options.padding * 3 +
                     options.arrowHeight;
             canvas.width = w;
             canvas.height = h;
@@ -54,7 +57,7 @@ jQuery(document).ready(function () {
             context.font = font;
             context.fillText(text,
                 w / 2,
-                (h - options.arrowHeight) / 2 + options.padding);
+                (h - options.arrowHeight) / 2 + options.padding*1.5);
             //傳回DataURI字串
             return canvas.toDataURL();
         }
@@ -135,8 +138,8 @@ jQuery(document).ready(function () {
 							position: b.latlng,
 							title: b.name, //名稱告示牌作為圖示
 							icon: createMarkerIcon(b.name,
-									//距離較近的前三名為紅底，其餘為暗紅底
-									{ bgColor: i < 3 ? 'red' : 'darkred' }),
+									//距離較近的前三名為紅底，其餘為綠底
+									{ bgColor: i < 3 ? 'red' : 'green' }),
 							map: map
 						});
 						attachSecretMessage(marker, b.name, b.picture, b.tel);
