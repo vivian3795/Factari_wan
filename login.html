@@ -386,6 +386,7 @@ div.loginpanel div.hr div:last-child {
   }
 }
 </style>
+
 </head>
 <body>
 <script>
@@ -416,7 +417,7 @@ window.fbloaded = function (){
 				console.log(response.name);
 				Ref.update({ // in database
 					displayName: response.name,
-          photo : "https://graph.facebook.com/"+response.id+"/picture?type=square"
+					photo : "https://graph.facebook.com/"+response.id+"/picture?type=square"
 				});
 			});			
 		}
@@ -591,13 +592,14 @@ var loginCheck = function(){
               displayName: name,
               photoURL: url
             }).then(function() {
-            Ref.set({ // in database
-              displayName: name,
-              photo : url,
-              like: "none",
-              went: "none"
-            });
-               //History.back();
+			  var go = Array(135).fill(false);
+				Ref.set({ // in database
+				displayName: name,
+				photo : url,
+				like: "none",
+				went: go
+			});
+               History.back();
               console.log("You create."); 
             }, function(error) {
               console.log("An error happened."); 
@@ -614,12 +616,11 @@ var loginCheck = function(){
   //loginCheck();
   if(firebaseUser){
     var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid;    
+    var name, photoUrl, uid;    
     if (user != null) {
 		name = user.displayName;
 		photoUrl = user.photoURL;
 		uid = user.uid;
-		email = user.email;
     }
 	 var Ref = firebase.database().ref('user/' + uid);
 	 Ref.on("value",function(snapshot) {
@@ -630,11 +631,12 @@ var loginCheck = function(){
 				photo : photoUrl
 			});
 		}else{
+			var go = Array(135).fill(false);
 			Ref.set({ // in database
-				like: "none",
-				went: "none",
 				displayName: name,
-				photo : photoUrl
+				photo : purl,
+				like: "none",
+				went: go
 			});
 		}
 	});
