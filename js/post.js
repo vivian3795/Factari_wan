@@ -86,6 +86,31 @@
 			auth = snap.val().displayName;
 		});
 		//動態新增block,待補
+        var card_div = document.createElement("div");
+        card_div.className = "card";
+        card_div.id = uid + factory;
+        document.body.cards.appendChild(card_div);
+        var photo = document.createElement("img");
+        photo.className = "card-image";
+        photo.src = picture;
+        document.body.cards.card_div.appendChild(photo);
+        var card_info_div = document.createElement("div");
+        card_info_div.className = "card-info";
+        card_info_div.id = uid + factory + "info";
+        document.body.cards.card_div.appendChild(card_info_div);
+        var card_title_div = document.createElement("div");
+        card_title_div.className = "card-title";
+        card_title_div.innerHTML = title;
+        document.body.cards.card_div.card_info_div.appendChild(card_info_div);
+        var card_detail_div = document.createElement("div");
+        card_detail_div.className = "card-detail";
+        card_detail_div.innerHTML = words;
+        document.body.cards.card_div.card_info_div.appendChild(card_detail_div);
+        var card_social_div = document.createElement("div");
+        card_social_div.className = "card-social";
+        card_social_div.id = uid + factory + "social";
+        card_social_div.innerHTML = "<ul><li><a href = " + url + "target =" + "_blank" + "<i class=" + "fa fa-comment-o" + "aria-hidden=" + "true" + "></i></a></li><li><i class=" + "fa fa-heart-o" + "aria-hidden=" + "true" + "></i></li></ul>";//ul和li不知道怎麼寫就先這麼寫了
+        document.body.cards.card_div.appendChild(card_social_div);
 		ckLike();
 	});
 	
@@ -145,6 +170,7 @@
 							auth = snap.val().displayName;
 						});
 						//動態新增block,待補
+                        
 					});
 				}
 				ckLike();
