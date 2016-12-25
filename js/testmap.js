@@ -415,7 +415,7 @@
                 });
             }
           */
-          for (var i = start; i < end/*secretMessages.length*/; ++i) {
+          for (var i = parseInt(start); i < parseInt(end); ++i) {
             var marker = new google.maps.Marker({
               position: {
                 lat: parseFloat(markmaplat[i]),
