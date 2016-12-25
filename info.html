@@ -8,20 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>手信坊創意和菓子文化館</title>
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+    <title id="theTitle">info</title>
+	
+	<!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 
     <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css'>
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
@@ -36,7 +36,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -44,20 +44,48 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	 <script type='text/javascript' 
-            src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script> 
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script>   
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style>
-        body,input { padding-top: 100px;font-size: 9pt; font-family:Microsoft JhengHei;}	
-        tbody {}	   
+        body,input { font-size: 9pt; font-family:Microsoft JhengHei;padding-top: 100px;}		
+        html { height: 100% }  
+        body { height: 100%; margin: 0px; } 
+		#down { padding-top: 10px; } 
+        #map_canvas { margin:0px auto; width:700px; height:500px; }     
+		@media (max-width: 900px) {			
+			#map_canvas {
+				height: 450px;
+				width: 600px;
+			}
+		}
+		@media (max-width: 700px) {			
+			#map_canvas {
+				height: 400px;
+				width: 500px;
+			}
+		}		
+		@media (max-width: 600px) {			
+			#map_canvas {
+				height: 400px;
+				width: 400px;
+			}
+		}
+    @media (max-width: 400px) {     
+      #map_canvas {
+        height: 300px;
+        width: 300px;
+      }
+    }
     </style>
+
+	<script src="js/road.js"></script>
   </head>
 
   <body>
-    <a href="javascript:" id="top"><i class="icon-chevron-up"></i></a>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<div class="navbar-wrapper">
       <div class="container">
+
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
             <div class="navbar-header">
@@ -67,55 +95,37 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="taiwan.html">LOGO</a>
+              <a class="navbar-brand" href="index.html">LOGO</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">          
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="location.html">位置</a></li>
 					<li><a href="login.html" id="sign">Log in</a></li> 
-					<li class="dropdown " id="name">
-						<a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
+					<li class="dropdown hide" id="name">
+						<a  class="dropdown-toggle" id="Uname" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="person.html" id="person">person</a></li>
+							<li><a href="#" id="person">person</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#" id="out">Log out</a></li>
+							<li><a id="out">Log out</a></li>
 						</ul>
 					</li>
 				</ul>		 
 			</div>
           </div>
         </nav>
-
       </div>
     </div>
-	
-    <div class="container">		
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4><strong>手信坊創意和菓子文化館</strong></h4></div>
-        <div class="panel-body table-responsive">
-            <img src="images/info/m1.jpg" class="img-thumbnail">
-            <button type="button" class="btn btn-block panel-heading accordion-toggle" data-toggle="collapse" data-target="#info" aria-expanded="true" aria-controls="info">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                   資訊 Information</button>
-                    <table class="table table-bordered table-hover accordion-body collapse" id="info">
-                        <tr>
-                            <th>名稱</th>
-                            <th>手信坊創意和菓子文化館</th>
+<div id="map_canvas"></div>
 
-                        </tr>
-                        <tr>
-                            <th>電話TEL</th>
-                            <th>02-82620506</th>
-                        </tr>
-                        <tr>
-                            <th>地址</th>
-                            <th>新北市土城區國際路55號</th>
-                        </tr>
-                        <tr>
-                            <th>參觀資訊</th>
-                            <th><a href="www.3ssf.com.tw">www.3ssf.com.tw</a></th>
-                        </tr>
-                    </table>
+<div class="container" id="down">	
+     <div class="panel panel-default">
+       <div class="panel-heading"><h4><strong id="theTitlein">Loading...</strong></h4></div>
+        <div class="panel-body table-responsive">
+            <button type="button" class="btn btn-block panel-heading accordion-toggle" data-toggle="collapse" data-target="#directions_panel" aria-expanded="true" aria-controls="directions_panel">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                   資訊 Information</button>                    
+<div id="directions_panel" style="width:100%"></div>
+
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
               <div class="btn-group" role="group" id="add_a">
                   <button type="button" class="btn btn-block panel-heading accordion-toggle" data-toggle="collapse" data-target="#share" aria-expanded="true" aria-controls="share"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>分享</button>
@@ -136,23 +146,21 @@
                     <li>標題</li>
                     <input type="text" id="title">
                     <li>
-                        <img id="ph" class="hide" uid="0" width="300px" height="250px">
-		                <progress value="0" max="100" id="uploader" > 0% </progress>
-		                <input class="btn btn-lg btn-primary btn-block" type="file" value="upload" >
+		                <input class="btn btn-lg btn-success btn-block" type="file" value="upload" id='picture'>
                     </li>
                     <li>內容</li>
                     <textarea cols="100" rows="10" id="words" val=""></textarea>
                 </ul>
                 <button type="button" id="cancel">重寫</button>
-                <button type="button" id="submit" onclick="reload">送出</button>
+                <button type="button" id="postWrite" >送出</button>
                 </div>
-            </div>
+            </div> 
             <div class="card-container" id="cards">
                 <div class="card">
                     <img src="images/info/m1.jpg" class="card-image">
                     <div class="card-info">
                         <div class="card-title">Title</div>
-                        <div class="card-detail">
+                        <div class="card-detail">1234
                         </div>
                     </div>
                     <div class="card-social">
@@ -164,35 +172,40 @@
                         </ul>
                     </div>
                 </div>
+				<div class="card">
+                    <img src="images/info/m1.jpg" class="card-image">
+                    <div class="card-info">
+                        <div class="card-title">Title</div>
+                        <div class="card-detail">
+                        </div>
+                    </div>
+                    <div class="card-social">
+                        <ul>
+                            <li><a href="article.html" class="fa fa-comment"></a>
+                            </li>
+                            <li><a class="fa-heart-ofa fa-heart "></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <footer class="footer">
                 <p>&copy; 2016 Company, Inc.</p>
+				<button onclick="thePost('1.jpg','tle','words','key');">test</button>
             </footer>
-        </div>
+        </div>	
  <!-- /container -->
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src="js/top.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js'></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script>
-       $(function(){
-        $('.coverflow').css('max-width',$('.coverflow img').width());
-            if ($('.coverflow .carousel-inner div.item').length < 7) { 
-	           $('.carousel-indicators, .carousel-control').hide();
-            }
-        });
-    </script>
+    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-	<script src="js/sign.js"></script>
-	<script type="text/javaScript" src="js/create_article.js"></script>
-    <script type="text/javascript" src="js/post.js"></script>
+	<script src="js/sign.js"></script>	
+    <script src="js/post.js"></script>
   </body>
 </html>
