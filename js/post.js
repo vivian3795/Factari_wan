@@ -1,14 +1,33 @@
-(function(){ 
-  
-  var config = {
-    apiKey: "AIzaSyC6S1EiWCP6lk1lGLTgFxxuylGXPfT23y8",
-    authDomain: "factory-ddb70.firebaseapp.com",
-    databaseURL: "https://factory-ddb70.firebaseio.com",
-    storageBucket: "factory-ddb70.appspot.com",
-    messagingSenderId: "795740952180"
-  };
-  firebase.initializeApp(config); 	
- 
+(function(){  
+	//讀取當下factory post
+	const postReadF = firebase.database().ref('post');
+	function PRF(){
+	postReadF.orderByChild('factory').equalTo(location.hash).on('value', function(snapshot){
+		var title = snapshot.val().title;
+		var picture = snapshot.val().picture;
+		var words = snapshot.val().words;
+		thePost(picture,title,words,snapshot.key);		
+	}).then(function(){		ckLike();	}) ;
+	}
+		
+	function ckLike(){
+		var path = firebase.database().ref("user/"+uid);
+		path.on('value', snap =>{
+			var likelist = snap.val().like;
+			if(likelist!="none"){
+				var part = likelist.split(",");
+				for(var i=0;i<part.length;i++){
+					if(document.getElementById(part[i])){
+						document.getElementById(part[i]).classList.add("fa-heart");
+						document.getElementById(part[i]).classList.remove("fa-heart-o");
+					}
+				}				
+			}
+		});
+	}
+	
+}());
+
 	var picture = document.getElementById("picture");
 	var up, now;
 	picture.addEventListener('change',function(e) {
@@ -26,103 +45,19 @@
 		var s = (n.getSeconds()< 10)?("0" + (n.getSeconds())):(n.getSeconds());
 		now = y+"-"+m+"-"+d+"_"+h+":"+mi+":"+s;
 	}
-	//當post完成繳交
-	const postWrite = document.getElementById("postWrite");
-	postWrite.addEventListener('click', e =>{
-		var user = firebase.auth().currentUser;		
-		if (user != null) {
-			nowtime(); var uid = user.uid;
-			var title = document.getElementById("title").value;
-			var words = document.getElementById("words").value;
-			var Ref = firebase.database().ref('post/'+now+","+uid);
-			//照片上傳檔案庫
-			var storageRef = firebase.storage().ref("post/"+now+","+uid+".jpg");
-			storageRef.put(up);
-			storageRef.getDownloadURL().then(function(url) {
-				Ref.set({	//寫入資料庫
-					picture : url,	
-					uid : uid,	
-					title : title,
-					words: words,
-					factory : location.hash //#工廠名,待補
-				});
-			});				
-		}else{
-			 alert("please log in");
-		}
-	});	
-	//讀取當下factory post
-	const postReadF = firebase.database().ref('post');
-	postReadF.orderByChild('factory').equalTo(location.hash).on('value', function(snapshot){
-		var parts = snapshot.key.split(',');
-		var uid = parts[1];
-		var time = parts[0];
-		var title = snapshot.val().title;
-		var picture = snapshot.val().picture;
-		var words = snapshot.val().words;
-		var auth; //uid轉換成作者名字
-		var authpath = firebase.database().ref("user/"+uid);
-		authpath.on('value', snap =>{	  
-			auth = snap.val().displayName;
-		});
-		//動態新增block,待補
-		ckLike();
-	});
-	
-	//讀取當下user post
-	const postReadU = firebase.database().ref('post');
-	var myhash = location.hash.split('#');
-	postReadU.orderByChild('uid').equalTo(myhash[1]).on('value', function(snapshot){
-		var parts = snapshot.key.split(',');
-		var uid = parts[1];
-		var time = parts[0];
-		var title = snapshot.val().title;
-		var words = snapshot.val().words;
-		var picture = snapshot.val().picture;
-		var factory = snapshot.val().factory;
-		var auth; //uid轉換成作者名字
-		var authpath = firebase.database().ref("user/"+uid);
-		authpath.on('value', snap =>{	  
-			auth = snap.val().displayName;
-		});
-		//動態新增block,待補
-        var card_div = document.createElement("div");
-        card_div.className = "card";
-        card_div.id = uid + factory;
-        document.body.cards.appendChild(card_div);
-        var photo = document.createElement("img");
-        photo.className = "card-image";
-        photo.src = picture;
-        document.body.cards.card_div.appendChild(photo);
-        var card_info_div = document.createElement("div");
-        card_info_div.className = "card-info";
-        card_info_div.id = uid + factory + "info";
-        document.body.cards.card_div.appendChild(card_info_div);
-        var card_title_div = document.createElement("div");
-        card_title_div.className = "card-title";
-        card_title_div.innerHTML = title;
-        document.body.cards.card_div.card_info_div.appendChild(card_info_div);
-        var card_detail_div = document.createElement("div");
-        card_detail_div.className = "card-detail";
-        card_detail_div.innerHTML = words;
-        document.body.cards.card_div.card_info_div.appendChild(card_detail_div);
-        var card_social_div = document.createElement("div");
-        card_social_div.className = "card-social";
-        card_social_div.id = uid + factory + "social";
-        card_social_div.innerHTML = "<ul><li><a href = " + url + "target =" + "_blank" + "<i class=" + "fa fa-comment-o" + "aria-hidden=" + "true" + "></i></a></li><li><i class=" + "fa fa-heart-o" + "aria-hidden=" + "true" + "></i></li></ul>";//ul和li不知道怎麼寫就先這麼寫了
-        document.body.cards.card_div.appendChild(card_social_div);
-		ckLike();
-	});
-	
-	//onclick=like(this.id);
+
+//onclick=like(this.id);
 	function like(post){
+	  var user = firebase.auth().currentUser;		
+	  if (user != null) {
 		var nowPost = document.getElementById(post);
-		var path = firebase.database().ref("user/"+uid);
+		var path = firebase.database().ref("user/"+ user.uid);
 		path.on('value', snap =>{
 			var likelist = snap.val().like;
 			
-			if(nowPost.classList.contains('active')){
-				nowPost.classList.remove("active");
+			if(nowPost.classList.contains('fa-heart')){
+				nowPost.classList.remove("fa-heart");
+				nowPost.classList.add("fa-heart-o");
 				var part = likelist.split(post+",");
 				if(part[0]==null && part[1]==null){
 					path.update({ // in database
@@ -135,7 +70,8 @@
 				}				
 			}
 			else{
-				nowPost.classList.add("active");				
+				nowPost.classList.add("fa-heart");
+				nowPost.classList.remove("fa-heart-o");				
 				if(likelist=="none"){
 					path.update({ // in database
 						like : post+","					
@@ -147,50 +83,83 @@
 				}
 			}
 		});
-	}
+	  }else{
+		  alert("not login");
+	  }	  
+	}	
+
+	//當post完成繳交
+	const postWrite = document.getElementById("postWrite");
+	postWrite.addEventListener('click', e =>{
+		var user = firebase.auth().currentUser;		
+		if (user != null) {
+			nowtime(); var uid = "useruid";
+			var title = document.getElementById("title").value;
+			var words = document.getElementById("words").value;
+			var pname = now+"&"+uid;
+			var Ref = firebase.database().ref('post/'+pname);
+			//照片上傳檔案庫
+			var storageRef = firebase.storage().ref("post/"+pname+".jpg");
+		storageRef.put(up).then(function() {
+			storageRef.getDownloadURL().then(function(url) {
+				Ref.set({	//寫入資料庫
+					picture : url,	
+					title : title,
+					words: words,
+					factory : location.hash //#工廠名,待補
+				}).then(function(){thePost(url,title,words,pname);});
+			});
+		});		
+		}else{
+			 alert("please log in");
+		}
+	});	
 	
-	function youLike(){
-		var path = firebase.database().ref("user/"+uid);
-		path.on('value', snap =>{
-			var likelist = snap.val().like;
-			if(likelist!="none"){
-				var part = likelist.split(",");
-				for(var i=0;i<part.length;i++){
-					postReadU.Child(part[i]).on('value', function(snapshot){
-						var parts = snapshot.key.split(',');
-						var uid = parts[1];
-						var time = parts[0];
-						var title = snapshot.val().title;
-						var words = snapshot.val().words;
-						var picture = snapshot.val().picture;
-						var factory = snapshot.val().factory;
-						var auth; //uid轉換成作者名字
-						var authpath = firebase.database().ref("user/"+uid);
-						authpath.on('value', snap =>{	  
-							auth = snap.val().displayName;
-						});
-						//動態新增block,待補
-                        
-					});
-				}
-				ckLike();
-			}
-		});
+	function thePost(image,title,words,key){
+        var idiv = document.createElement("div");
+		idiv.className = "card";
+		document.getElementById("cards").appendChild(idiv);
+	//img
+		var img = document.createElement("img");
+		img.className = "card-image";
+		img.src = image;
+		idiv.appendChild(img);
+	//info	
+		var info = document.createElement("div");
+		info.className = "card-info";
+		idiv.appendChild(info);
+		
+		var tit = document.createElement("div");
+		tit.className = "card-title";
+		tit.innerHTML = title;
+		info.appendChild(tit);
+		
+		var detail = document.createElement("div");
+		detail.className = "card-detail";
+		detail.innerHTML= words;
+		info.appendChild(detail);
+	//socail
+		var social = document.createElement("div");
+		social.className = "card-social";
+		idiv.appendChild(social);
+		
+		var ul = document.createElement("ul");
+		social.appendChild(ul);
+		
+		var liA = document.createElement("li");
+		ul.appendChild(liA);
+		
+		var A = document.createElement("a");
+		A.className = "fa fa-comment-o";
+		A.href = "article.html#" + key;
+		liA.appendChild(A);
+		
+		var liB = document.createElement("li");
+		ul.appendChild(liB);
+		
+		var B = document.createElement("a");
+		B.className = "fa fa-heart-o";
+		B.id = key;
+		B.addEventListener('click', e =>{ like(key) });
+		liB.appendChild(B);
 	}
-	
-	function ckLike(){
-		var path = firebase.database().ref("user/"+uid);
-		path.on('value', snap =>{
-			var likelist = snap.val().like;
-			if(likelist!="none"){
-				var part = likelist.split(",");
-				for(var i=0;i<part.length;i++){
-					if(document.getElementById(part[i])){
-						document.getElementById(part[i]).classList.add("active");
-					}
-				}				
-			}
-		});
-	}
-	
-}());
