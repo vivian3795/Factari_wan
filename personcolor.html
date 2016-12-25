@@ -11,7 +11,6 @@
     <title>個人頁面</title>
     <!--成就的北中南東progress-->
     <link rel="stylesheet" href="css/test.css" type="text/css">
-    <script src="js/test.js" type="text/javascript"></script>
 	<!--成就的北中南東progress-->
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -155,13 +154,13 @@
 
 	<div class="wrap">
 		      
-        <div class="progress-radial progress-40">
-          <div class="overlay">40%</div>
+        <div class="progress-radial progress-40" id="northprogress">
+          <div class="overlay" id="north"></div>
           <div class="overlay1">北</div>
         </div>
 		
-        <div class="progress-radial progress-50">
-          <div class="overlay">50%</div>
+        <div class="progress-radial progress-50" id="mid1progress">
+          <div class="overlay" id="mid1">50%</div>
           <div class="overlay1">中</div>
         </div>
 
@@ -286,6 +285,141 @@
 		changeColor("TW-CYI",colorrank);
 		}
 	}
-</script>
+
+	//progress 北部
+	var north = Math.round((rank[0]+rank[1]+rank[2]+rank[3]+rank[4])/37*100);
+	document.getElementById("north").innerHTML=north+'%';
+	if (north==0) {
+		document.getElementById('northprogress').className = 'progress-radial progress-0'; 
+	}
+	else if(north<8&north>0){
+		document.getElementById('northprogress').className = 'progress-radial progress-5'; 
+	}
+	else if(north<13&north>7){
+		document.getElementById('northprogress').className = 'progress-radial progress-10'; 
+	}
+	else if(north<18&north>12){
+		document.getElementById('northprogress').className = 'progress-radial progress-15'; 
+	}
+	else if(north<23&north>17){
+		document.getElementById('northprogress').className = 'progress-radial progress-20'; 
+	}
+	else if(north<28&north>22){
+		document.getElementById('northprogress').className = 'progress-radial progress-25'; 
+	}
+	else if(north<33&north>27){
+		document.getElementById('northprogress').className = 'progress-radial progress-30'; 
+	}
+	else if(north<38&north>32){
+		document.getElementById('northprogress').className = 'progress-radial progress-35'; 
+	}
+	else if(north<43&north>37){
+		document.getElementById('northprogress').className = 'progress-radial progress-40'; 
+	}
+	else if(north<48&north>42){
+		document.getElementById('northprogress').className = 'progress-radial progress-45'; 
+	}
+	else if(north<53&north>47){
+		document.getElementById('northprogress').className = 'progress-radial progress-50'; 
+	}
+	else if(north<58&north>52){
+		document.getElementById('northprogress').className = 'progress-radial progress-55'; 
+	}
+	else if(north<63&north>57){
+		document.getElementById('northprogress').className = 'progress-radial progress-60'; 
+	}
+	else if(north<68&north>62){
+		document.getElementById('northprogress').className = 'progress-radial progress-65'; 
+	}
+	else if(north<73&north>67){
+		document.getElementById('northprogress').className = 'progress-radial progress-70'; 
+	}
+	else if(north<78&north>72){
+		document.getElementById('northprogress').className = 'progress-radial progress-75'; 
+	}
+	else if(north<83&north>77){
+		document.getElementById('northprogress').className = 'progress-radial progress-80'; 
+	}
+	else if(north<88&north>82){
+		document.getElementById('northprogress').className = 'progress-radial progress-85'; 
+	}
+	else if(north<93&north>87){
+		document.getElementById('northprogress').className = 'progress-radial progress-90'; 
+	}
+	else if(north<100&north>92){
+		document.getElementById('northprogress').className = 'progress-radial progress-95'; 
+	}
+	else if(north==100){
+		document.getElementById('northprogress').className = 'progress-radial progress-100'; 
+
+	}
+
+//progress 中部
+	var mid1 = Math.round((rank[5]+rank[6]+rank[7]+rank[8]+rank[9]+rank[10])/55*100);
+	document.getElementById("mid1").innerHTML=mid1+'%';
+	if (mid1==0) {
+		document.getElementById('mid1progress').className = 'progress-radial progress-0'; 
+	}
+	else if(mid1<8&mid1>0){
+		document.getElementById('mid1progress').className = 'progress-radial progress-5'; 
+	}
+	else if(mid1<13&mid1>7){
+		document.getElementById('mid1progress').className = 'progress-radial progress-10'; 
+	}
+	else if(mid1<18&mid1>12){
+		document.getElementById('mid1progress').className = 'progress-radial progress-15'; 
+	}
+	else if(mid1<23&mid1>17){
+		document.getElementById('mid1progress').className = 'progress-radial progress-20'; 
+	}
+	else if(mid1<28&mid1>22){
+		document.getElementById('mid1progress').className = 'progress-radial progress-25'; 
+	}
+	else if(mid1<33&mid1>27){
+		document.getElementById('mid1progress').className = 'progress-radial progress-30'; 
+	}
+	else if(mid1<38&mid1>32){
+		document.getElementById('mid1progress').className = 'progress-radial progress-35'; 
+	}
+	else if(mid1<43&mid1>37){
+		document.getElementById('mid1progress').className = 'progress-radial progress-40'; 
+	}
+	else if(mid1<48&mid1>42){
+		document.getElementById('mid1progress').className = 'progress-radial progress-45'; 
+	}
+	else if(mid1<53&mid1>47){
+		document.getElementById('mid1progress').className = 'progress-radial progress-50'; 
+	}
+	else if(mid1<58&mid1>52){
+		document.getElementById('mid1progress').className = 'progress-radial progress-55'; 
+	}
+	else if(mid1<63&mid1>57){
+		document.getElementById('mid1progress').className = 'progress-radial progress-60'; 
+	}
+	else if(mid1<68&mid1>62){
+		document.getElementById('mid1progress').className = 'progress-radial progress-65'; 
+	}
+	else if(mid1<73&mid1>67){
+		document.getElementById('mid1progress').className = 'progress-radial progress-70'; 
+	}
+	else if(mid1<78&mid1>72){
+		document.getElementById('mid1progress').className = 'progress-radial progress-75'; 
+	}
+	else if(mid1<83&mid1>77){
+		document.getElementById('mid1progress').className = 'progress-radial progress-80'; 
+	}
+	else if(mid1<88&mid1>82){
+		document.getElementById('mid1progress').className = 'progress-radial progress-85'; 
+	}
+	else if(mid1<93&mid1>87){
+		document.getElementById('mid1progress').className = 'progress-radial progress-90'; 
+	}
+	else if(mid1<100&mid1>92){
+		document.getElementById('mid1progress').className = 'progress-radial progress-95'; 
+	}
+	else if(mid1==100){
+		document.getElementById('mid1progress').className = 'progress-radial progress-100'; 
+	}
+	</script>
   </body>
 </html>
