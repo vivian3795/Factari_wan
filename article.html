@@ -60,7 +60,7 @@
 					<li class="active"><a href="location.html">位置</a></li>
 					<li><a href="login.html" id="sign">Log in</a></li> 
 					<li class="dropdown hide" id="name">
-						<a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" id='Uname' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="person.html" id="person">person</a></li>
 							<li role="separator" class="divider"></li>
@@ -79,9 +79,16 @@
     <div class="container">	
         <div class="panel panel-default">
             <img src="images/info/m1.jpg" class="img-thumbnail" id="picture">
-            <div class="panel-heading" id="title"><h4><strong>Title</strong></h4>
+            <div class="panel-heading"><h4><strong id="title">Title</strong></h4>
             </div>
-            <div class="panel-body table-responsive" id="words"><p>123</p></div>
+            <div class="panel-body table-responsive">
+			<h5 style="text-align: right;" ></h5>	
+			<p id="words">123</p>
+			<h5 style="text-align: right;">
+				<strong id='T'>Title</strong>&nbsp; by &nbsp; 
+				<strong ><a id='A'>Title</a></strong>
+			</h5>							
+			</div>
         </div>
       <footer class="footer">
         <p>&copy; 2016 Company, Inc.</p>
@@ -102,5 +109,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
 <script src="js/sign.js"></script>
+<script src="js/word.js"></script>
   </body>
 </html>
