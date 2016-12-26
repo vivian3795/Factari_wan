@@ -1,7 +1,7 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>登入頁面</title>
 <meta charset='UTF-8'>
     <!-- Bootstrap core CSS -->
 <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -359,7 +359,18 @@ div.loginpanel div.hr div:first-child {
 div.loginpanel div.hr div:last-child {
   margin-left: 20px;
 }
-
+div.loginpanel a.upload {
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  -ms-transition: all 0s;
+  -o-transition: all 0s;
+  transition: all 0s;
+}
+div.loginpanel a.upload:before {
+  padding-right: 6px;
+}
 @media only screen and (max-width: 555px) {
   div.loginpanel {
     width: 90%;
@@ -469,9 +480,9 @@ var loginCheck = function(){
 
   <div class="buttons hide" id="PH">
     <span>
-      <a  class="entypo-camera register" >Upload Photo</a>
+      <a  class="entypo-camera upload" >Upload Photo</a>
     </span>
-    <input class="btn btn-lg btn-block btn-default" id="file" type="file" placeholder="Upload Photo" />
+    <input class="btn btn-lg btn-block btn-default" id="file" type="file" placeholder="Upload Photo" ></input>
   </div>
   <div class="buttons hide" id="SB">    
     <input type="button" value="Sign Up" id="signup" /> 
@@ -489,7 +500,7 @@ var loginCheck = function(){
     <a  class="googleplus" id="Glogin"></a>
   </div>
 </div>
-<input type="button" value="Sign out" id="out" /> 
+
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
 <script>
 (function(){ 
@@ -507,7 +518,8 @@ var loginCheck = function(){
   FBlogin.addEventListener('click', e =>{
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-	//	  loginCheck();  
+	//	  loginCheck(); 
+		ckin();		history.back();
 	}).catch(function(error) {
 	   console.log("ERR"); 
  });  
@@ -516,13 +528,17 @@ var loginCheck = function(){
   const Glogin = document.getElementById("Glogin");   
   Glogin.addEventListener('click', e =>{
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);    
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+		ckin();		history.back();
+	}); 
  });  
  
   const Tlogin = document.getElementById("Tlogin");   
   Tlogin.addEventListener('click', e =>{
     var provider = new firebase.auth.TwitterAuthProvider();
-    firebase.auth().signInWithPopup(provider);    
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+		ckin();		history.back();	
+	}); 
  });
    
   const login = document.getElementById("login");
@@ -531,14 +547,13 @@ var loginCheck = function(){
   const signup = document.getElementById("signup");
   var pwd = document.getElementById('pwd');
   var pwdck = document.getElementById('pwdck');
-  var username = document.getElementById('username');
   var file = document.getElementById('file');
   var phurl, up;  
    
   login.addEventListener('click', e =>{
     var email = document.getElementById("email").value;
     var password = document.getElementById("pwd").value;
-    firebase.auth().signInWithEmailAndPassword(email, password);
+    firebase.auth().signInWithEmailAndPassword(email, password);	
   });
   
   register.addEventListener('click', e =>{
@@ -579,6 +594,7 @@ var loginCheck = function(){
     else{
     var email = document.getElementById("email").value;
     var password = document.getElementById("pwd").value;
+	var name = document.getElementById('username').value;
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
       var user = firebase.auth().currentUser;
       if (user != null) {
@@ -586,20 +602,21 @@ var loginCheck = function(){
         var storageRef = firebase.storage().ref("user/"+user.uid+"/photo.jpg");
         //upload file
         var task = storageRef.put(up).then(function(){   
-          storageRef.getDownloadURL().then(function(url) {
-            var name = username.value;
+          storageRef.getDownloadURL().then(function(url) {            
+			console.log(name);
+			console.log(url);
             user.updateProfile({ //in auth
               displayName: name,
               photoURL: url
             }).then(function() {
-			  var go = Array(135).fill(false);
-				Ref.set({ // in database
-				displayName: name,
-				photo : url,
-				like: "none",
-				went: go
-			});
-               History.back();
+            var go = Array(135).fill(false);
+			  Ref.set({ // in database
+			   displayName: name,
+			   photo : url,
+			   like: "none",
+			   went: go
+			  });
+			  history.back();
               console.log("You create."); 
             }, function(error) {
               console.log("An error happened."); 
@@ -607,23 +624,29 @@ var loginCheck = function(){
           });
         });
       }
-    });
+    });	
     }     
   });
   
-  
- firebase.auth().onAuthStateChanged(firebaseUser =>{
-  //loginCheck();
+firebase.auth().onAuthStateChanged(firebaseUser =>{
   if(firebaseUser){
-    var user = firebase.auth().currentUser;
-    var name, photoUrl, uid;    
+    console.log("log in now");
+  }else{
+    console.log("not log in");
+  }
+ });
+ 
+ function ckin(){
+	var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid;    
     if (user != null) {
 		name = user.displayName;
 		photoUrl = user.photoURL;
 		uid = user.uid;
-    }
-	 var Ref = firebase.database().ref('user/' + uid);
-	 Ref.on("value",function(snapshot) {
+		email = user.email;
+    }	
+	var Ref = firebase.database().ref('user/' + uid);
+	Ref.on("value",function(snapshot) {
 		var a = snapshot.child("like").exists();  // true
 		if(a){
 			Ref.update({ // in database
@@ -633,28 +656,14 @@ var loginCheck = function(){
 		}else{
 			var go = Array(135).fill(false);
 			Ref.set({ // in database
-				displayName: name,
-				photo : photoUrl,
 				like: "none",
-				went: go
+				went: go,
+				displayName: name,
+				photo : photoUrl
 			});
 		}
-	});
-	  history.back();
-    console.log("log in now");
-  }else{
-    console.log("not log in");
-  }
- });
-
-  const out = document.getElementById("out");
-  out.addEventListener('click', e =>{
-    firebase.auth().signOut().then(function() {
-      console.log("success");
-    }, function(error) {
-      console.log("fail");
-    });
-  });
+	});	
+ }
   
 }());
 </script>

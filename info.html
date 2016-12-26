@@ -23,12 +23,12 @@
     <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 
-    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css'>
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
     <!--box-->
-     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
      <!-- end-->
       <link rel="stylesheet" href="css/block_style.css">
       <link href="css/top.css" rel="stylesheet">
@@ -50,6 +50,8 @@
     <style>
         body,input { font-size: 9pt; font-family:Microsoft JhengHei;padding-top: 100px;}		
         html { height: 100% }  
+		a {color:#FFFFFF}
+		a:hover {color:#2dcc71}
         body { height: 100%; margin: 0px; } 
 		#down { padding-top: 10px; } 
         #map_canvas { margin:0px auto; width:700px; height:500px; }     
@@ -137,7 +139,7 @@
                 <div class="panel-body accordion-body collapse"  id="share">
                     <ul>    
                         <li>分享至...</li>
-                        <li><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href)) ));"><img title="分享到臉書！" src="images/share_icon/facebook.png" border="0" width="48" /></a><a href="javascript: void(window.open('http://www.plurk.com/?qualifier=shares&status=' .concat(encodeURIComponent(location.href)) .concat(' ') .concat('&#40;') .concat(encodeURIComponent(document.title)) .concat('&#41;')));"><img title="分享到噗浪！" src="images/share_icon/plurk.png" border="0" width="48" /></a><a href="javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(document.title)) .concat(' ') .concat(encodeURIComponent(location.href))));"><img title="分享到推特！" src="images/share_icon/twitter.png" border="0" width="48" /></a><a href="javascript:(function(){window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href)+'&source=bookmark','_blank','width=450,height=400');})()"><img title="分享到微博！" src="images/share_icon/weibo.png" border="0" width="48" /></a><a href="javascript: void(window.open('https://plus.google.com/share?url='.concat(encodeURIComponent(location.href)), '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'));"><img title="分享到Google+！" src="images/share_icon/google_plus.png" border="0" width="48" ></a></li>
+                        <button class="btn btn-block"><span class="glyphicon glyphicon-fb"></span></button>
                     </ul>
                 </div>
             </div>
@@ -156,7 +158,7 @@
                 </div>
             </div> 
             <div class="card-container" id="cards">
-                <div class="card">
+    <!--            <div class="card">
                     <img src="images/info/m1.jpg" class="card-image">
                     <div class="card-info">
                         <div class="card-title">Title</div>
@@ -188,12 +190,12 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+    -->        </div>
             <footer class="footer">
                 <p>&copy; 2016 Company, Inc.</p>
-				<button onclick="thePost('1.jpg','tle','words','key');">test</button>
             </footer>
         </div>	
+
  <!-- /container -->
 
 	<!-- Bootstrap core JavaScript
