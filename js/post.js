@@ -1,22 +1,29 @@
 (function(){  
 	//讀取當下factory post
-	const postReadF = firebase.database().ref('post');
-	function PRF(){
-	postReadF.orderByChild('factory').equalTo(location.hash).on('value', function(snapshot){
-		var title = snapshot.val().title;
-		var picture = snapshot.val().picture;
-		var words = snapshot.val().words;
-		thePost(picture,title,words,snapshot.key);		
-	}).then(function(){		ckLike();	}) ;
-	}
+	var i=0;
+	var query = firebase.database().ref("post").orderByKey();
+		query.once("value")
+			.then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) { 
+					if(childSnapshot.val().factory == location.hash){
+						var title = childSnapshot.val().title;
+						var pic = childSnapshot.val().picture;
+						var words = childSnapshot.val().words;
+						thePost(pic,title,words,childSnapshot.key);
+					}
+				});
+				ckLike();
+			});
 		
 	function ckLike(){
-		var path = firebase.database().ref("user/"+uid);
+	var user = firebase.auth().currentUser;		
+	  if (user != null) {
+		var path = firebase.database().ref("user/"+user.uid);
 		path.on('value', snap =>{
 			var likelist = snap.val().like;
 			if(likelist!="none"){
 				var part = likelist.split(",");
-				for(var i=0;i<part.length;i++){
+				for(var i=0;i<part.length-1;i++){
 					if(document.getElementById(part[i])){
 						document.getElementById(part[i]).classList.add("fa-heart");
 						document.getElementById(part[i]).classList.remove("fa-heart-o");
@@ -24,14 +31,13 @@
 				}				
 			}
 		});
+	  }
 	}
 	
 }());
-
 	var picture = document.getElementById("picture");
 	var up, now;
 	picture.addEventListener('change',function(e) {
-	//get file
 		up = e.target.files[0];
 	});
 
@@ -52,9 +58,11 @@
 	  if (user != null) {
 		var nowPost = document.getElementById(post);
 		var path = firebase.database().ref("user/"+ user.uid);
-		path.on('value', snap =>{
+		path.once('value').then(function(snap) {		
 			var likelist = snap.val().like;
-			
+			var lst = snap.val().displayName;
+			console.log(likelist);
+			console.log(lst);
 			if(nowPost.classList.contains('fa-heart')){
 				nowPost.classList.remove("fa-heart");
 				nowPost.classList.add("fa-heart-o");
@@ -75,11 +83,13 @@
 				if(likelist=="none"){
 					path.update({ // in database
 						like : post+","					
-					});
+					})
+					console.log( post+",");
 				}else{
 					path.update({ // in database
 						like : post+","	+likelist				
 					});
+					console.log(post+","+likelist);
 				}
 			}
 		});
@@ -93,7 +103,7 @@
 	postWrite.addEventListener('click', e =>{
 		var user = firebase.auth().currentUser;		
 		if (user != null) {
-			nowtime(); var uid = "useruid";
+			nowtime(); var uid = user.uid;
 			var title = document.getElementById("title").value;
 			var words = document.getElementById("words").value;
 			var pname = now+"&"+uid;
@@ -109,7 +119,20 @@
 					factory : location.hash //#工廠名,待補
 				}).then(function(){thePost(url,title,words,pname);});
 			});
-		});		
+		});	
+		var myhash = location.hash.split('#');
+		var RefF = firebase.database().ref('factory/' + myhash[1]);
+		RefF.on("value", function(childSnapshot) {
+			var id = childSnapshot.val().picture;
+			var RefU = firebase.database().ref('user/' + uid);
+			RefU.on("value",function(snapshot) {
+				var a = snapshot.val().went; 
+				a[id] = true;
+					RefU.update({ // in database
+						went: a
+					});
+			});	
+		});						
 		}else{
 			 alert("please log in");
 		}
@@ -160,6 +183,6 @@
 		var B = document.createElement("a");
 		B.className = "fa fa-heart-o";
 		B.id = key;
-		B.addEventListener('click', e =>{ like(key) });
+		B.addEventListener('click', e =>{ like(key); });
 		liB.appendChild(B);
 	}
