@@ -1,6 +1,5 @@
 (function(){  
 	//讀取當下factory post
-	var i=0;
 	var query = firebase.database().ref("post").orderByKey();
 		query.once("value")
 			.then(function(snapshot) {
@@ -137,6 +136,12 @@
 			 alert("please log in");
 		}
 	});	
+	
+	const cancel= document.getElementById("cancel");
+	cancel.addEventListener('click', e =>{
+		document.getElementById("title").value="";
+		document.getElementById("words").value="";
+	});		
 	
 	function thePost(image,title,words,key){
         var idiv = document.createElement("div");
