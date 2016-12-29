@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="images/icon.ico"/>
+<link rel="bookmark" href="images/icon.ico"/>
 <meta charset='UTF-8'>
     <!-- Bootstrap core CSS -->
 <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -519,7 +521,7 @@ var loginCheck = function(){
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
 	//	  loginCheck(); 
-		ckin();		history.back();
+		ckin();		
 	}).catch(function(error) {
 	   console.log("ERR"); 
  });  
@@ -529,7 +531,7 @@ var loginCheck = function(){
   Glogin.addEventListener('click', e =>{
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-		ckin();		history.back();
+		ckin();		
 	}); 
  });  
  
@@ -537,7 +539,7 @@ var loginCheck = function(){
   Tlogin.addEventListener('click', e =>{
     var provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-		ckin();		history.back();	
+		ckin();		
 	}); 
  });
    
@@ -553,7 +555,9 @@ var loginCheck = function(){
   login.addEventListener('click', e =>{
     var email = document.getElementById("email").value;
     var password = document.getElementById("pwd").value;
-    firebase.auth().signInWithEmailAndPassword(email, password);	
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(result) {
+		ckin();		
+	}); 	
   });
   
   register.addEventListener('click', e =>{
@@ -609,7 +613,7 @@ var loginCheck = function(){
               displayName: name,
               photoURL: url
             }).then(function() {
-            var go = Array(135).fill(false);
+            var go = Array(135).fill(0);
 			  Ref.set({ // in database
 			   displayName: name,
 			   photo : url,
@@ -654,7 +658,7 @@ firebase.auth().onAuthStateChanged(firebaseUser =>{
 				photo : photoUrl
 			});
 		}else{
-			var go = Array(135).fill(false);
+			var go = Array(135).fill(0);
 			Ref.set({ // in database
 				like: "none",
 				went: go,
@@ -662,6 +666,7 @@ firebase.auth().onAuthStateChanged(firebaseUser =>{
 				photo : photoUrl
 			});
 		}
+		history.back();
 	});	
  }
   
