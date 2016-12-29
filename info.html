@@ -172,8 +172,10 @@
 					</ul>
                 </div>
              <div class="panel-body accordion-body collapse"  id="thestar"> 
-						<div id="star"></div>
+						<div id="star"></div> 
 						<div id="result"></div>
+						<p id="nowRank">0</p>
+						<p id="youRank"></p>
                 </div>
             <div class="panel-body accordion-body collapse" id="add_article">
                 <ul>    
@@ -230,17 +232,82 @@
 
 	   var text = $('#result').text();
 
-        $('img').click(function () {
+$('img').click(function () {
 
-            if ($('#result').text() != text) {
+    if ($('#result').text() != text) {              
+		
+		var st = parseFloat($('#result').text());
+		var user = firebase.auth().currentUser;		
+		if (user != null) {
+		var myhash = location.hash.split('#');
+		var RefF = firebase.database().ref('factory/' + myhash[1]);
+		RefF.once("value")
+		.then(function(childSnapshot) {
+			var id = childSnapshot.val().picture;
+			var c = parseFloat(childSnapshot.val().count);
+			var s = parseFloat(childSnapshot.val().score);
 
-                alert($('#result').text());
+			var RefU = firebase.database().ref('user/' + user.uid);
+			RefU.once("value")
+				.then(function(snapshot) {
+				var a = snapshot.val().went; 
+				var my = parseFloat(a[id]);
 
+				if(my != 0){
+					if(my != -1){			
+						s=s-my+st;
+					}else{
+						c=c+1;
+						s=s+st;
+					}
+				}else{
+					c=c+1;
+					s=s+st;
+				}
+				RefF.update({
+					count: c,
+					score: s
+				});
+				a[id]=st;
+				RefU.update({
+					went:a
+				});
+				document.getElementById("nowRank").innerHTML= "工廠評價 : "+s/c;
+				document.getElementById("youRank").innerHTML= "你的評價 : "+ st;
+			});					
+		});						
+		}else{
+			 alert("please log in");
+		}
                 return;
+    }
 
-            }
+});
+var myhash = location.hash.split('#');
+var RefF = firebase.database().ref('factory/' + myhash[1]);
+	RefF.once("value")
+	.then(function(childSnapshot) {
+		var c = parseFloat(childSnapshot.val().count);
+		var s = parseFloat(childSnapshot.val().score);
+		var id = childSnapshot.val().picture;
+		document.getElementById("nowRank").innerHTML= "工廠評價 : "+s/c;
 
-        });
+		var user = firebase.auth().currentUser;		
+		if (user != null) {
+			var RefU = firebase.database().ref('user/' + user.uid);
+			RefU.once("value")
+				.then(function(snapshot) {
+				var a = snapshot.val().went; 
+				var my = parseFloat(a[id]);
+
+				if(my != 0 && my != -1){
+					document.getElementById("youRank").innerHTML= "你的評價 : "+my;					
+				}
+			});						
+		}
+	});	
+		
+		
    </script>
   </body>
 </html>
