@@ -59,9 +59,6 @@
 		var path = firebase.database().ref("user/"+ user.uid);
 		path.once('value').then(function(snap) {		
 			var likelist = snap.val().like;
-			var lst = snap.val().displayName;
-			console.log(likelist);
-			console.log(lst);
 			if(nowPost.classList.contains('fa-heart')){
 				nowPost.classList.remove("fa-heart");
 				nowPost.classList.add("fa-heart-o");
@@ -88,7 +85,6 @@
 					path.update({ // in database
 						like : post+","	+likelist				
 					});
-					console.log(post+","+likelist);
 				}
 			}
 		});
@@ -126,10 +122,11 @@
 			var RefU = firebase.database().ref('user/' + uid);
 			RefU.on("value",function(snapshot) {
 				var a = snapshot.val().went; 
-				a[id] = true;
-					RefU.update({ // in database
-						went: a
-					});
+				if(a[id] == 0)
+					a[id] = -1;
+				RefU.update({ // in database
+					went: a
+				});
 			});	
 		});						
 		}else{

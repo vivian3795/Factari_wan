@@ -170,7 +170,7 @@ AmCharts.ready(function() {
 				for(var i = 0;i<branches.length;i++){
 					var b = branches[i];
 					for(var j = b.start; j <b.end; j++){
-						if(went[count]){
+						if(went[count]!=0){
 							b.rank ++;
 						}
 						count++;
