@@ -290,7 +290,10 @@ var RefF = firebase.database().ref('factory/' + myhash[1]);
 		var c = parseFloat(childSnapshot.val().count);
 		var s = parseFloat(childSnapshot.val().score);
 		var id = childSnapshot.val().picture;
-		document.getElementById("nowRank").innerHTML= "工廠評價 : "+s/c;
+		if(c==0)
+			document.getElementById("nowRank").innerHTML= "工廠評價 : 尚未有人評價";
+		else
+			document.getElementById("nowRank").innerHTML= "工廠評價 : "+s/c;
 
 		var user = firebase.auth().currentUser;		
 		if (user != null) {
