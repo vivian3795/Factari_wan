@@ -1,8 +1,7 @@
 (function(){  	
 	//資料陣列
 	var branches = []; var map; var ND = Array(8).fill(0);
-	//綠色由淺到深十種等級	
-	var gcolor = ['d5f6e3','abedc8','82e3ac','58da90','2dcc71','29bc69','209252','1c7d46','12542f','092a17'];
+	var gcolor = ['b9fcac','a6e89a','92d588','7b807a','6baf63','51954c','3d8138','286d26','252a25','014601'];
 	
 	function thehash(){
 		return location.hash;
@@ -20,6 +19,8 @@
 		changeColor("TW-HSQ",colorrank);
 		}else if(idname == 'chiayi'){
 		changeColor("TW-CYI",colorrank);
+		}else if(idname == 'xinbei'){
+		changeColor("taipei",colorrank);
 		}
 	}
 	
@@ -143,7 +144,7 @@ AmCharts.ready(function() {
 	map.addListener("writeDevInfo", writeDevInfo);
 	map.write("mapdiv");
 	
-	$("#mapdiv").css("background-color","#AAAAAA");
+	$("#mapdiv").css("background-color","#FFFFFF");
 	
 	
 		var query = firebase.database().ref("area").orderByKey();
@@ -158,15 +159,14 @@ AmCharts.ready(function() {
 				});						
 			});	
 			branches.sort(function (a, b) {
-				if (a.start > b.start) 
+				if ( parseInt(a.start) >  parseInt(b.start) )
 					return 1;
 				else{
-					return (a.end > b.end) ? 1 : -1;
+					return ( parseInt(a.end) >  parseInt(b.end)) ? 1 : -1;
 				}
 			});
 			firebase.database().ref('user/' + firebase.auth().currentUser.uid).on("value",function(snap) {
 				var went = snap.val().went;	 var count=0;
-				console.log(went);
 				for(var i = 0;i<branches.length;i++){
 					var b = branches[i];
 					for(var j = b.start; j <b.end; j++){
@@ -177,36 +177,190 @@ AmCharts.ready(function() {
 					}
 					var num = b.end-b.start;
 					var colorrank = Math.round((b.rank/num)*10);
+					if (num==0)
+						colorrank=0;
+					if (colorrank==10)
+						colorrank=9;
 					changeColor(b.area,colorrank);
 					ranking(i,b.rank,num);
 				}
-				$("#mapdiv").css("background-color","#FFFFFF");
+				$("#mapdiv").css("background-color","#c2ebed");
 				finalRank();
+				console.log(Math.round((1/1)*10));
 			});			
 		});			
 });
-	
+		
 firebase.auth().onAuthStateChanged(firebaseUser =>{
 	var myhash = thehash().split('#');
 	var Ref = firebase.database().ref('user/' + myhash[1]);
-	Ref.on("value", function(snapshot) {
-			document.getElementById("author").innerHTML = snapshot.val().displayName;  
-			document.getElementById("authorP").src = snapshot.val().photo;
-		});
+	Ref.once("value").then(function(snap) {
+		document.getElementById("author").innerHTML = snap.val().displayName;  
+		document.getElementById("authorP").src = snap.val().photo;
+
+		var likelist = snap.val().like.split(',');		
+		var queryL = firebase.database().ref("post").orderByKey();
+		queryL.once("value")
+			.then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) { 
+					var str = childSnapshot.key;
+					var bool = false;
+					for(i=0;i<likelist.length-1;i++){
+						if(str.indexOf(likelist[i]) !== -1){
+							bool = true; break;
+						}
+					} 
+					if(bool){
+						var title = childSnapshot.val().title;
+						var pic = childSnapshot.val().picture;
+						var words = childSnapshot.val().words;
+						thePost(pic,title,words,childSnapshot.key,"plike");
+					}
+					if(str.indexOf(myhash[1]) !== -1){
+						var title = childSnapshot.val().title;
+						var pic = childSnapshot.val().picture;
+						var words = childSnapshot.val().words;
+						thePost(pic,title,words,childSnapshot.key,"pwrite");
+					}
+				});
+				ckLike();
+			});
+	});
 	
 	if(firebaseUser){		
 		var uid = firebase.auth().currentUser.uid;			
 		if(uid!=myhash[1]){
 			document.getElementById("Ucount").classList.add("hide");
 			document.getElementById("map_canvas").classList.add("hide");
-			document.getElementById("wrap").classList.add("hide");
-		}else{		
-		
+			document.getElementById("plike").classList.add("hide");
+		}else{
+			document.getElementById("pwrite").classList.add("hide");
+			document.getElementById("plike").classList.add("hide");
+			document.getElementById("sidebar").classList.add("hide");
 		}
 	}else{
 		document.getElementById("Ucount").classList.add("hide");
 		document.getElementById("map_canvas").classList.add("hide");
-		document.getElementById("wrap").classList.add("hide");
+		document.getElementById("plike").classList.add("hide");
 	}
-});		
+});
+	
+	function ckLike(){
+	var user = firebase.auth().currentUser;		
+	  if (user != null) {
+		var path = firebase.database().ref("user/"+user.uid);
+		path.on('value', snap =>{
+			var likelist = snap.val().like;
+			if(likelist!="none"){
+				var part = likelist.split(",");
+				for(var i=0;i<part.length-1;i++){
+					if(document.getElementById(part[i])){
+						document.getElementById(part[i]).classList.add("fa-heart");
+						document.getElementById(part[i]).classList.remove("fa-heart-o");
+					}
+				}				
+			}
+		});
+	  }
+	}		
 }());	
+
+
+//onclick=like(this.id);
+	function like(post){
+	  var user = firebase.auth().currentUser;		
+	  if (user != null) {
+		var nowPost = document.getElementById(post);
+		var path = firebase.database().ref("user/"+ user.uid);
+		path.once('value').then(function(snap) {		
+			var likelist = snap.val().like;
+			var lst = snap.val().displayName;
+			console.log(likelist);
+			console.log(lst);
+			if(nowPost.classList.contains('fa-heart')){
+				nowPost.classList.remove("fa-heart");
+				nowPost.classList.add("fa-heart-o");
+				var part = likelist.split(post+",");
+				if(part[0]==null && part[1]==null){
+					path.update({ // in database
+						like : "none"					
+					});
+				}else{
+					path.update({ // in database
+						like : part[0]+part[1]			
+					});
+				}				
+			}
+			else{
+				nowPost.classList.add("fa-heart");
+				nowPost.classList.remove("fa-heart-o");				
+				if(likelist=="none"){
+					path.update({ // in database
+						like : post+","					
+					})
+					console.log( post+",");
+				}else{
+					path.update({ // in database
+						like : post+","	+likelist				
+					});
+					console.log(post+","+likelist);
+				}
+			}
+		});
+	  }else{
+		  alert("not login");
+	  }	  
+	}	
+
+	
+	function thePost(image,title,words,key,place){
+        var idiv = document.createElement("div");
+		idiv.className = "card"; 
+		document.getElementById(place).appendChild(idiv);
+	//img
+		var img = document.createElement("img");
+		img.className = "card-image";
+		img.src = image;
+		idiv.appendChild(img);
+	//info	
+		var info = document.createElement("div");
+		info.className = "card-info";
+		idiv.appendChild(info);
+		
+		var tit = document.createElement("div");
+		tit.className = "card-title";
+		tit.innerHTML = title;
+		info.appendChild(tit);
+		
+		var detail = document.createElement("div");
+		detail.className = "card-detail";
+		detail.innerHTML= words;
+		info.appendChild(detail);
+	//socail
+		var social = document.createElement("div");
+		social.className = "card-social";
+		idiv.appendChild(social);
+		
+		var ul = document.createElement("ul");
+		social.appendChild(ul);
+		
+		var liA = document.createElement("li");
+		ul.appendChild(liA);
+		
+		var A = document.createElement("a");
+		A.className = "fa fa-comment-o WG";
+		A.href = "article.html#" + key;
+		liA.appendChild(A);
+		
+		var liB = document.createElement("li");
+		ul.appendChild(liB);
+		
+		var B = document.createElement("a");
+		if(place=="plike")
+			B.className = "fa fa-heart WG";
+		else
+			B.className = "fa fa-heart-o WG";
+		B.id = key;
+		B.addEventListener('click', e =>{ like(key); });
+		liB.appendChild(B);
+	}
