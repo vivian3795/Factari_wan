@@ -112,3 +112,29 @@
   transition-delay: 0.1s;
   transform: scaleY(1);
 }
+
+
+.rwd-table {
+  border: 1px;
+  border-collapse: collapse;
+}
+  .rwd-table td {
+    border: 1px ;
+    padding: 4px 4px;
+    text-align: center;
+  }
+   
+@media screen and (max-width: 500px) {
+   
+  .rwd-table tr {
+    border: 1px;
+  }
+  .rwd-table td {
+      display: block;
+      border: none;
+  }
+  .rwd-table td:before {
+      float: middle;
+      font-weight: bold;
+  }
+}
