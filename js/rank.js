@@ -350,7 +350,7 @@ firebase.auth().onAuthStateChanged(firebaseUser =>{
 		
 		var A = document.createElement("a");
 		A.className = "fa fa-comment-o WG";
-		A.href = "article.html#" + key;
+		A.href = "article.html?" + key;
 		liA.appendChild(A);
 		
 		var liB = document.createElement("li");
