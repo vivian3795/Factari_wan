@@ -1,7 +1,7 @@
 jQuery(document).ready(function () {	
  function attachSecretMessage(marker, secretMessage, picture, tel) {
-   var infowindowHtml="<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+".jpg>"+"<div></div>"+
-        "<a href='https://factory-ddb70.firebaseapp.com/info.html#"+tel+"'>"+secretMessage+"</a>"
+   var infowindowHtml="<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+".jpg>"+
+        "<div></div><a href='info.html?"+tel+"'>"+secretMessage+"</a>"
    var infowindow = new google.maps.InfoWindow({
     content: infowindowHtml
    });

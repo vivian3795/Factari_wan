@@ -6,7 +6,7 @@ body {
 
   .wrap {
     width: 600px;
-    margin: 10px 0px 0px 450px;
+    margin: 20px 0px 0px 450px;
 
   }
 
@@ -14,7 +14,7 @@ body {
 @media screen and (max-width: 600px){
   .wrap {
     width: 300px;
-    margin: 10px 0px 0px 75px;
+    margin: 20px 0px 0px 75px;
   }
 }
 
@@ -24,13 +24,14 @@ body {
 .progress-radial {
   float: left;
   margin-right: 30px;
-  margin-top: 20px;
+  margin-left: 40px;/*here*/
+  margin-top: 40px;
   position: relative;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 2px;
-  background-color: tomato;
+  background-color: #c0f9c6;
 }
 
 /* -------------------------------------
@@ -40,7 +41,7 @@ body {
   position: absolute;
   width: 60px;
   height: 60px;
-  background-color: #fffde8;
+  background-color: #ffffff;
   border-radius: 50%;
   margin-left: 20px;
   margin-top: 20px;
@@ -54,7 +55,7 @@ body {
   width: 60px;
   height: 60px;
   margin-left: 20px;
-  margin-top: 100px;
+  margin-top: 85px;
   text-align: center;
   line-height: 60px;
   font-size: 16px;
@@ -64,85 +65,85 @@ body {
  * Mixin for progress-% class
  * ------------------------------------- */
 .progress-0 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(90deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(90deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-5 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(108deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(108deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-10 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(126deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(126deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-15 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(144deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(144deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-20 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(162deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(162deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-25 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(180deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(180deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-30 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(198deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(198deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-35 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(216deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(216deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-40 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(234deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(234deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-45 {
-  background-image: linear-gradient(90deg, #2f3439 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(252deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #c0f9c6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(252deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-50 {
-  background-image: linear-gradient(-90deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(-90deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-55 {
-  background-image: linear-gradient(-72deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(-72deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-60 {
-  background-image: linear-gradient(-54deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(-54deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-65 {
-  background-image: linear-gradient(-36deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(-36deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-70 {
-  background-image: linear-gradient(-18deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(-18deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-75 {
-  background-image: linear-gradient(0deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(0deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-80 {
-  background-image: linear-gradient(18deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(18deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-85 {
-  background-image: linear-gradient(36deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(36deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-90 {
-  background-image: linear-gradient(54deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(54deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-95 {
-  background-image: linear-gradient(72deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(72deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }
 
 .progress-100 {
-  background-image: linear-gradient(90deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #2f3439 50%, #2f3439);
+  background-image: linear-gradient(90deg, #3b9344 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #3b9344 50%, #c0f9c6 50%, #c0f9c6);
 }

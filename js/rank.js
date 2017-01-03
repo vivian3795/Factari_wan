@@ -3,8 +3,8 @@
 	var branches = []; var map; var ND = Array(8).fill(0);
 	var gcolor = ['b9fcac','a6e89a','92d588','7b807a','6baf63','51954c','3d8138','286d26','252a25','014601'];
 	
-	function thehash(){
-		return location.hash;
+	function thehash(){		
+		return location.href.split(location.pathname+"?");
 	}
 
 	function changeColor(idname,colorrank) {
@@ -192,7 +192,8 @@ AmCharts.ready(function() {
 });
 		
 firebase.auth().onAuthStateChanged(firebaseUser =>{
-	var myhash = thehash().split('#');
+	var myhash = thehash();
+	console.log(myhash);
 	var Ref = firebase.database().ref('user/' + myhash[1]);
 	Ref.once("value").then(function(snap) {
 		document.getElementById("author").innerHTML = snap.val().displayName;  

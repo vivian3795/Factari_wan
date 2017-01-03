@@ -30,7 +30,7 @@
     Ref.on("value", function(snapshot) {
       document.getElementById("Uname").innerHTML = snapshot.val().displayName;    
     }); 
-	person.href="person.html#"+uid;
+	person.href="person.html?"+uid;
   }else{
     console.log("not log in");
 	 name.classList.add("hide");

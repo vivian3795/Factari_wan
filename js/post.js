@@ -1,10 +1,11 @@
 (function(){  
+	var hash = location.href.split(location.pathname+"?");
 	//讀取當下factory post
 	var query = firebase.database().ref("post").orderByKey();
 		query.once("value")
 			.then(function(snapshot) {
 				snapshot.forEach(function(childSnapshot) { 
-					if(childSnapshot.val().factory == location.hash){
+					if(childSnapshot.val().factory == hash[1]){
 						var title = childSnapshot.val().title;
 						var pic = childSnapshot.val().picture;
 						var words = childSnapshot.val().words;
@@ -107,15 +108,16 @@
 			var storageRef = firebase.storage().ref("post/"+pname+".jpg");
 		storageRef.put(up).then(function() {
 			storageRef.getDownloadURL().then(function(url) {
+				var h = location.href.split(location.pathname+"?");
 				Ref.set({	//寫入資料庫
 					picture : url,	
 					title : title,
 					words: words,
-					factory : location.hash //#工廠名,待補
+					factory : h[1] //#工廠名,待補
 				}).then(function(){thePost(url,title,words,pname);});
 			});
 		});	
-		var myhash = location.hash.split('#');
+		var myhash = location.href.split(location.pathname+"?");
 		var RefF = firebase.database().ref('factory/' + myhash[1]);
 		RefF.on("value", function(childSnapshot) {
 			var id = childSnapshot.val().picture;
@@ -176,7 +178,7 @@
 		
 		var A = document.createElement("a");
 		A.className = "fa fa-comment-o";
-		A.href = "article.html#" + key;
+		A.href = "article.html?" + key;
 		liA.appendChild(A);
 		
 		var liB = document.createElement("li");

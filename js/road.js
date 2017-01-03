@@ -16,6 +16,7 @@ jQuery(document).ready(function () {
 
     google.maps.event.addListener(directionsDisplay, 'directions_changed',
       function() {
+        document.getElementById("directions_panel").innerHTML = "";
         if (currentDirections) {
           oldDirections.push(currentDirections);          
         }
@@ -42,8 +43,8 @@ jQuery(document).ready(function () {
   }
 	
  function attachSecretMessage(marker, secretMessage, picture, tel, addr) {
-   var infowindowHtml="<p><p><b>"+secretMessage+"</b><div><IMG BORDER='0' ALIGN='Left' SRC=./images/"+
-        picture+".jpg>"+"</div><p><b>地址:"+addr+"<p>電話:"+tel+"</b>";
+   var infowindowHtml="<p><b>"+secretMessage+"</b><div></div><table><tr><td><IMG BORDER='0' ALIGN='Left' SRC=./images/"+
+        picture+".jpg></td></tr>"+"<tr><td><b>地址:"+addr+"</b></td></tr><tr><td><p><b>電話:"+tel+"</b></td></tr></table>";
    var infowindow = new google.maps.InfoWindow({
     content: infowindowHtml
    });
@@ -107,7 +108,7 @@ jQuery(document).ready(function () {
         }
   
 		var name,tel,addr,picture,latlng;
-		var myhash = location.hash.split('#');
+		var myhash = location.href.split(location.pathname+"?");
 		var Ref = firebase.database().ref('factory/' + myhash[1]);
 		Ref.on("value", function(childSnapshot) {
 			name = childSnapshot.val().name;

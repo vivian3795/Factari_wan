@@ -1,6 +1,6 @@
 (function(){  
 	//讀取當下factory post
-	var hash = location.hash.split('#');
+	var hash = location.href.split(location.pathname+"?");
 	var query = firebase.database().ref("/post/"+hash[1]);
 		query.once("value")
 			.then(function(snapshot) {

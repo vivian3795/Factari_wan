@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="images/icon.ico"/>
+    <link rel="bookmark" href="images/icon.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +31,7 @@
     <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css'>
+   <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css'>-->
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
     <!--box-->
      <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
@@ -41,6 +43,7 @@
       <link href="css/top.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <link href="css/top.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="https://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
@@ -60,24 +63,27 @@
 		
 		.container { width: auto;}
 		#wrap{width:auto;margin: 0px auto;}
-
+		.WG {color:#FFFFFF}
+		.WG:hover {color:#2dcc71}
     </style>
   </head>
 
   <body>
+	<a href="javascript:" id="top"><i class="icon-chevron-up"></i></a>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<div class="navbar-wrapper">
       <div class="container">
 
         <nav class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
+		  <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
+				<span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.html">LOGO</a>
+              <a class="navbar-brand" href="index.html"><img src="images/logo.png"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">          
 				<ul class="nav navbar-nav navbar-right">
@@ -93,7 +99,7 @@
 					</li>
 				</ul>		 
 			</div>
-          </div>
+		  </div>
         </nav>
 
       </div>
@@ -116,17 +122,17 @@
 				</div>				
 				<ul class="stats-tabs clearfix" id ="Ucount">
 					<li >
-						<a id="Upost" onclick="getElementById('under').innerHTML='post';">
+						<a id="Upost" onclick="goPost();">
 							貼文
 						</a>        
 					</li>
 					<li>
-						<a id="Ulike" onclick="getElementById('map_canvas').classList.add('hide');">
+						<a id="Ulike" onclick="goLike();">
 							收藏
 						</a>        
 					</li>					
 					<li>
-						<a id="Urank" onclick="getElementById('map_canvas').classList.remove('hide');">
+						<a id="Urank" onclick="goRank();">
 							成就
 						</a>        
 					</li>
@@ -138,43 +144,12 @@
       </div>
       
    <div class="col-xs-12 ">
-        	<div class="sidebar">
+        	<div class="sidebar" id='sidebar'>
 			<div class="inner-block widget">
 				<div id="under">
-                   <p>目前沒有任何新的感想和收藏喔，趕快去發表新感想吧！</p>
-                    <div class="card-container" id="cards">
-                        <div class="card">
-                            <img src="images/info/m1.jpg" class="card-image">
-                            <div class="card-info">
-                                <div class="card-title">Title</div>
-                                <div class="card-detail">1234
-                                </div>
-                            </div>
-                            <div class="card-social">
-                                <ul>
-                                    <li><a href="article.html" target="_blank"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li><i class="fa fa-heart-o" aria-hidden="true"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="images/info/m1.jpg" class="card-image">
-                            <div class="card-info">
-                                <div class="card-title">Title</div>
-                                <div class="card-detail">
-                                </div>
-                            </div>
-                            <div class="card-social">
-                                <ul>
-                                    <li><a href="article.html" class="fa fa-comment"></a>
-                                    </li>
-                                    <li><a class="fa-heart-ofa fa-heart "></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="card-container" id="pwrite">
+                    </div>	
+					 <div class="card-container" id="plike">                                           
                     </div>	
                 </div>		
 			</div>			
@@ -207,6 +182,8 @@
 	</div>
   </div>
 </div>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="js/top.js"></script>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -218,5 +195,26 @@
 	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
 	<script  src="js/sign.js"></script>
 	<script  src="js/rank.js"></script>	
+	<script>
+	var pW = document.getElementById("pwrite");
+	var pL = document.getElementById("plike");
+	var pR = document.getElementById("map_canvas");
+	function goPost(){
+		pW.classList.remove("hide");
+		pL.classList.add("hide");
+		pR.classList.add("hide");
+		document.getElementById("sidebar").classList.remove("hide");
+	}
+	function goLike(){
+		pL.classList.remove("hide");
+		pW.classList.add("hide");
+		pR.classList.add("hide");
+		document.getElementById("sidebar").classList.remove("hide");
+	}
+	function goRank(){
+		pR.classList.remove("hide");
+		document.getElementById("sidebar").classList.add("hide");
+	}
+	</script>
   </body>
 </html>

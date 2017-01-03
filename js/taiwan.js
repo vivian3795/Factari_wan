@@ -43,7 +43,7 @@
  
  function attachSecretMessage(marker, secretMessage, picture, tel) {
    var infowindow = new google.maps.InfoWindow({
-    content: "<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+".jpg>"+"<div></div>"+"<a href='info.html#"+tel+"'>"+secretMessage+"</a>"
+    content: "<IMG BORDER='0' ALIGN='Left' SRC=./images/"+picture+".jpg>"+"<div></div>"+"<a href='info.html?"+tel+"'>"+secretMessage+"</a>"
    });
    marker.addListener('mouseover', function() {
      infowindow.open(marker.get('map'), marker);
