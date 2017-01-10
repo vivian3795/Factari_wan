@@ -46,7 +46,7 @@
 		var y = n.getFullYear()-2000;//2016->16
 		var m = (n.getMonth()+1< 10)?("0" + (n.getMonth() + 1)):(n.getMonth() + 1);
 		var d = (n.getDate()< 10)?("0" + (n.getDate())):(n.getDate());
-		var h = (n.getHours() + 8< 10)?("0" + (n.getHours() + 8)):(n.getHours() + 8);
+		var h = (n.getHours() < 10)?("0" + (n.getHours())):(n.getHours());
 		var mi = (n.getMinutes()< 10)?("0" + (n.getMinutes())):(n.getMinutes());
 		var s = (n.getSeconds()< 10)?("0" + (n.getSeconds())):(n.getSeconds());
 		now = y+"-"+m+"-"+d+"_"+h+":"+mi+":"+s;

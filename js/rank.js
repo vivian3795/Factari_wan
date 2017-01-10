@@ -1,7 +1,7 @@
 (function(){  	
 	//資料陣列
 	var branches = []; var map; var ND = Array(8).fill(0);
-	var gcolor = ['b9fcac','a6e89a','92d588','7b807a','6baf63','51954c','3d8138','286d26','252a25','014601'];
+	var gcolor = ['b9fcac','a6e89a','92d588','81c17a','6baf63','51954c','3d8138','30672c','244d21','183316'];
 	
 	function thehash(){		
 		return location.href.split(location.pathname+"?");
@@ -169,14 +169,16 @@ AmCharts.ready(function() {
 				var went = snap.val().went;	 var count=0;
 				for(var i = 0;i<branches.length;i++){
 					var b = branches[i];
-					for(var j = b.start; j <b.end; j++){
+					var num = parseFloat(b.end-b.start);
+
+					for(var j = parseFloat(b.start); j < parseFloat(b.end) && num >0; j++){
 						if(went[count]!=0){
 							b.rank ++;
 						}
-						count++;
+						count++;						
 					}
-					var num = b.end-b.start;
 					var colorrank = Math.round((b.rank/num)*10);
+					
 					if (num==0)
 						colorrank=0;
 					if (colorrank==10)
@@ -186,14 +188,12 @@ AmCharts.ready(function() {
 				}
 				$("#mapdiv").css("background-color","#c2ebed");
 				finalRank();
-				console.log(Math.round((1/1)*10));
 			});			
 		});			
 });
 		
 firebase.auth().onAuthStateChanged(firebaseUser =>{
 	var myhash = thehash();
-	console.log(myhash);
 	var Ref = firebase.database().ref('user/' + myhash[1]);
 	Ref.once("value").then(function(snap) {
 		document.getElementById("author").innerHTML = snap.val().displayName;  

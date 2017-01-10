@@ -64,7 +64,7 @@
 					<li class="dropdown hide" id="name">
 						<a href="#" class="dropdown-toggle" id='Uname' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="person.html" id="person">person</a></li>
+							<li><a href="person.html" id="person">個人頁面</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="#" id="out">Log out</a></li>
 						</ul>
@@ -80,21 +80,21 @@
   
     <div class="container">	
         <div class="panel panel-default">
-            <img src="images/info/m1.jpg" class="img-thumbnail" id="picture">
-            <div class="panel-heading"><h4><strong id="title">Title</strong></h4>
+            <img src="" class="img-thumbnail" id="picture">
+            <div class="panel-heading"><h4><strong id="title"></strong></h4>
             </div>
             <div class="panel-body table-responsive">
 			<h5 style="text-align: right;" ></h5>	
-			<p id="words">123</p>
-			<h5 style="text-align: right;">
-				<strong id='T'>Title</strong>&nbsp; by &nbsp; 
-				<strong ><a id='A'>Title</a></strong>
+			<p id="words"></p>
+			<h5 style="text-align: right;">							
+			<button type="button" class="btn btn-default btn-xs hide" id="remove">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 刪除文章
+			</button>
+				<strong id='T'></strong>&nbsp; by &nbsp; 				
+				<strong ><a id='A'></a></strong>
 			</h5>							
 			</div>
         </div>
-      <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
 
     </div> <!-- /container -->
        
@@ -112,5 +112,23 @@
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
 <script src="js/sign.js"></script>
 <script src="js/word.js"></script>
+<script>
+	var D = location.href.split("&");
+	firebase.auth().onAuthStateChanged(firebaseUser =>{
+		if(firebaseUser){		
+		var uid = firebase.auth().currentUser.uid;	
+			if(uid==D[1]){
+				var re=document.getElementById("remove");
+				re.classList.remove("hide");
+				re.addEventListener('click', e =>{
+					var P = location.href.split(location.pathname+"?");
+					var Ref = firebase.database().ref('post/'+P[1]);
+					Ref.remove();
+					history.back();
+				});	
+			}
+		}
+	});
+</script>
   </body>
 </html>

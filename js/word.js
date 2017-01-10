@@ -16,9 +16,10 @@
 					auth = snap.val().displayName;
 					document.getElementById('picture').src=url;
 					document.getElementById('title').innerHTML = title;
+					document.getElementById('words').innerHTML = words ;
 					document.getElementById('T').innerHTML = time ;
 					document.getElementById('A').innerHTML = auth ;
-					document.getElementById('A').href = "person.html#"+uid ;
+					document.getElementById('A').href = "person.html?"+uid ;
 				});
 		//		ckLike();
 			});
